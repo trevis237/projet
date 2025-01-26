@@ -1,0 +1,81 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", serif;
+}
+
+body{
+    background: url(../asset/plein-coup-jeune-homme-femme-maison_23-2149358490.jpg);
+    background-size: cover;
+}
+
+
+h1{
+    margin-top: 10px;
+    text-align: center;
+    font-size: 2rem;
+}
+.corps{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.div{
+    display: flex;
+    background-color: blue;
+}
+.container{
+    height: 500px;
+    width: 40%;
+    border: 1px solid;
+    margin-left: 25%;
+    margin-top: 75px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+}
+.two-forms{
+    display: flex;
+    gap: 0px;
+}
+.input-field{
+    font-size: 15px;
+    color: black;
+    height: 50px;
+    width: 100%;
+    padding: 0 10px 0 45px;
+    border: none;
+    border-radius: 30px;
+    outline: none;
+    transition: .2s ease;
+}
+.input-box{
+    margin: 20px;
+}
+.input-box i{
+    position: relative; 
+    left: 17px;
+    top: -33px;
+    gap: 15px;
+}
+.submit{
+    font-size: 16px;
+    font-weight: 600;
+    color: black;
+    height: 45px;
+    width: 25%;
+    border: none;
+    border-radius: 30px;
+    outline: none;
+    background: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: .3s ease-in-out;
+    
+}
+.submit:hover{
+    background: rgba(25, 204, 64, 0.5);
+    box-shadow: 1px 5px 7px 1px rgba(255, 255, 255, 0.2);
+}
+.button{
+    text-align: center;
+}

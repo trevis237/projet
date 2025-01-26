@@ -1,0 +1,233 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", serif;
+}
+body{
+    background-image: url(../asset/cdcca441.jpg);
+    background-size: cover;
+    background-position: center;
+    animation-name: arriere;
+    animation-duration: 8s;
+}
+img{
+    display: inline;
+}
+.container{
+    margin-top: 120px;
+    height: 100px;
+    width: 90%;
+    background-color: bisque;
+    margin-left: 50px;
+    padding-left: 20px;
+    border-radius: 10px;
+}
+.adresse{
+    display: inline;
+}
+.champ{
+    height: 60px;
+    width: 250px;
+    margin-top: 15px;
+    border-radius: 10px;
+
+}
+#send{
+    height: 60px;
+    width: 150px;
+    border-radius: 10px;
+    
+} 
+
+#send{
+    background-color: aqua;
+    color: #120d31;
+    border: 1px solid aqua;
+    height: 60px;
+    width: 150px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer; 
+    
+} 
+
+li{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+    color: #fff;
+    font-size: 1rem;
+}
+
+a:hover{
+    color: aqua;
+}
+
+header{
+    position: relative;
+    padding: 0 2rem;
+    background-color: rgba(0, 0, 0, 0.238);
+}
+
+.navbar {
+    width: 100%;
+    max-width: 1200px;
+    height: 60px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar .logo a{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar .links {
+    display: flex;
+    gap: 2rem;
+}
+
+.navbar .burger-menu-button{
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none;/*pour cacher*/
+}
+
+.buttons {
+    display: flex;
+    gap: 10px; /*met l'espace entre les elements*/
+}
+
+.action-button {
+    background-color: aqua;
+    color: #120d31;
+    border: 1px solid aqua;
+    padding: 0.5rem 1.12rem;
+    border-radius: 5px;
+    outline: none;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.action-button:hover {
+    color: #fff;
+    border: 1px solid #fff;
+}
+
+.pro {
+    background-color: transparent;
+    border: 1px solid #fff;
+}
+
+.pro:hover {
+    background-color: #fff;
+    color: #120d31;
+}
+
+/*responsive*/
+.burger-menu {
+    display: none;
+    height: 0;
+    /*height: 300px;*/
+    position: absolute;
+    right: 2rem;
+    top: 60px;
+    width: 200px;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(15px);/*pour flouter les elements*/
+    border-radius: 10px;
+    overflow: hidden;
+    transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.burger-menu.open{
+    height: 305px;
+}
+
+.burger-menu li{
+    padding: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.divider{
+    height: 1px;
+    background-color: #fff;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1rem;
+}
+
+.burger-menu .action-button {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;/*permet de centrer les elements par rapport a une div*/
+}
+
+.buttons-burger-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+}
+
+
+/*responsive*/
+@media (max-width: 990px) {
+    header{
+        background: none;
+    }
+
+    .navbar .links,
+    .navbar .action-button {
+        display: none;
+    }
+
+    .navbar .burger-menu-button {
+        display: block;
+    }
+
+    .burger-menu{
+        display: block;
+    }
+
+    .transi{
+        margin-top: 310px;
+    }
+
+    .container{
+        height: 390px;
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #send{
+        margin-top: 10px;
+    }
+}
+@media (max-width: 516px) {
+
+    .burger-menu{
+        left: 2rem;
+        width: unset;
+    }
+
+}
+
+

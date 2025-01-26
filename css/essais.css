@@ -1,0 +1,42 @@
+main{
+    width: 80%;
+    margin: auto;
+}
+.diapo{
+    position: relative;
+    overflow: hidden;
+}
+
+.elements{
+    display: flex;
+}
+
+.element{
+    flex: 1 0 100%;
+    position: relative;
+}
+
+.element > img{
+    width: 100%;
+}
+
+.caption{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+#nav-g, #nav-d{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: black;
+    font-size: 3rem;
+    cursor: pointer;
+}
+#nav-g{
+    right: 0;
+}
