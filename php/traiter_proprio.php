@@ -26,14 +26,7 @@ if(!empty($nom) && !empty($prenom) && !empty($mail) && !empty($telephone)) {
         // $tab=$requetes->fetch();
         // $email= $tab['email'];
 
-        $id_proprio=$bdd->query("SELECT MAX(id_user) as user FROM user");
-
-        $id=$id_proprio->fetch(PDO::FETCH_ASSOC);
-        if(!empty($id_proprio)){
-            session_start();
-
-           $_SESSION['id_user']=$id['user'];
-        }
+       
 
         header('location:../pages/inscription.php?email='.$mail);
   }

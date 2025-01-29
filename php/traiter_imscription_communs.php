@@ -19,7 +19,7 @@ if(!empty($mail) && !empty($password) && !empty($cpassword)){
         $hashpassword = password_hash($password, PASSWORD_DEFAULT);
 
         //verification de l'unicite de l'email
-        $chekEmail = $bdd->prepare("SELECT * FROM inscription WHERE email = :mail");
+        $chekEmail = $bdd->prepare("SELECT * FROM user WHERE email = :mail");
 
         $chekEmail->execute(["mail"=>$mail]);
         if($chekEmail->rowCount() > 0) {

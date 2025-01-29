@@ -19,7 +19,11 @@ if(!empty($mail) && !empty($password)){
         if($result['categorie'] > 0){
 
             
-            $_SESSION['proprietaire ']=$result['id_proprietaire'];
+            if(isset($_SESSION['id_user'])){
+                  $user=$_SESSION['id_user'];
+              }else{
+                  $user=null;
+              };
         //verification du mot de passe
 
         // if(password_verify($password, $result['password'])) {
@@ -30,7 +34,11 @@ if(!empty($mail) && !empty($password)){
         //     header('location:../pages/appar_dispo.php');
         //     exit;
         }else{
-            $_SESSION['locataire']=$result['id_locataire'];
+            if(isset($_SESSION['id_user'])){
+                echo  $user=$_SESSION['id_user'];
+              }else{
+                  $user=null;
+              }
             
             header('location:../pages/appar_dispo.php');
             exit;

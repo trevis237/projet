@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<?php session_start(); ?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,6 +13,15 @@
 </head>
 <body>
     <header>
+        <?php
+        include('./php/connexion.php');
+        if(isset($_SESSION['nom'])){
+            // echo'acun';
+            $user=$_SESSION['nom'];
+        }else{
+            $user=null;
+        }
+        ?>
         <div class="navbar">
             <div class="logo">
                 <a href="#">HOME</a>
@@ -22,6 +32,10 @@
                 <li><a href="about">a propos</a></li>
                 <li><a href="contact">contact</a></li>
             </ul>
+            <div class="case">
+                    <a href=""><i class="fa-solid fa-user"><?php echo $user ?></i></a>
+                    <a href=""></a>
+                </div>
             <div class="buttons">
                 <a href="" class="action-button pro">espace pro</a>
                 <a href="" class="action-button">se connecter</a>
@@ -33,7 +47,7 @@
         <div class="burger-menu">
             <ul class="links">
                 <li><a href="./inscription.php">accueil</a></li>
-                <li><a href="./ajoueter_logement.php">mettre mon logement</a></li>
+                <li><a href="/pages/ajouter_proprietaire.php">mettre mon logement</a></li>
                 <li><a href="about">a propos</a></li>
                 <li><a href="contact">contact</a></li>
                 <div class="divider">a</div>

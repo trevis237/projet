@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<?php session_start(); ?>
+<?php session_start();?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,9 +17,9 @@
             <h1>brand</h1>
         </div>
         <ul>
-            <li><i class="fa-solid fa-bars"></i>&nbsp; <span>dashboard</span></li>
-            <li><i class="fa-solid fa-home"></i>&nbsp; <a href="dash_propriete.php"><span>ma propriete</span></a></li>
-            <li><i class="fa-solid fa-user"></i>&nbsp; <a href="dash_locataire.php"><span>mes locataires</span></a></li>
+            <li><i class="fa-solid fa-bars"></i>&nbsp; <a href=""><span>dashboard</span></a> </li>
+            <li><i class="fa-solid fa-home"></i>&nbsp; <a href=""><span>ma propriete</span></a></li>
+            <li><i class="fa-solid fa-user"></i>&nbsp; <span>mes locataires</span></li>
             <li><i class="fa-solid fa-bars"></i>&nbsp; <span>statistique</span></li>
             <li><i class="fa-solid fa-money-bill"></i>&nbsp; <span>bilan mensuel</span></li>
             <li><i class="fa-solid fa-money-bill"></i>&nbsp; <span>total recette</span></li>
@@ -27,15 +27,15 @@
         </ul>
     </div>
     <div class="container">
-    <?php
-                    include('../php/connexion.php');
-                    if(isset($_SESSION['nom'])){
-                        // echo'acun';
-                        $user=$_SESSION['nom'];
-                    }else{
-                        $user=null;
-                    }
-                    ?>
+        <?php 
+        include('../php/connexion.php');
+        if(isset($_SESSION['nom'])){
+            // echo'acun';
+            $name=$_SESSION['nom'];
+        }else{
+            $name=null;
+        }
+        ?>
         <div class="header">
             <div class="nav">
                 <div class="seach">
@@ -47,8 +47,7 @@
                     <i class="fa-regular fa-bell"></i>
                 </div>
                 <div class="case">
-                    <a href=""><i class="fa-solid fa-user"><?php echo $user ?></i></a>
-                    <a href=""></a>
+                    <a href=""><i class="fa-solid fa-user"><?php echo $name ?></i></a>
                 </div>
             </div>
         </div> 
@@ -108,14 +107,62 @@
                         <h2>payement recents</h2>
                         <a href="#" class="btn">view all</a>
                     </div>
+
+                    <?php
                     
+                    include('../php/connexion.php');
+                    if(isset($_SESSION['id'])){
+                        // echo'acun';
+                        $user=$_SESSION['id'];
+                    }else{
+                        $user=null;
+                    }
+                    $reservation= $bdd->prepare("SELECT u.nom, u.prenom, u.email, u.telephone, r.date_debut, r.date_sortie, r.cout, l.adresse
+                     FROM user u, reservation r, logement l
+                     WHERE r.id_user = u.id_user AND r.id_reservation = l.id_reservation AND u.statut = 0 AND a.id_user = :user");
+
+                    $reservation->execute(["user"=>$user]);
+
+                    if($reservation->rowCount() > 0){
+
+                    $locataires=$reservation->fetchAll(PDO::FETCH_ASSOC);
+                }else{
+                    echo "aucun locataire trouve";
+                }
+                    
+?>
                     <table>
                         <tr>
                             <th>nom</th>
-                            <th>date</th>
-                            <th>montant</th>
-                            <th>nature</th>
-                            <th>nombre de jours</th>
+                            <th>prenom</th>
+                            <th>email</th>
+                            <th>telephone</th>
+                            <th>date d'entree</th>
+                            <th>date de sortie</th>
+                            <th>cout</th>
+                            <th>adresse</th>
+                        </tr>
+                        <?php foreach($locataires as $locataire){ ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars( $locataire['nom']); ?></td>
+                            <td><?php echo $loge['prenom'] ?></td>
+                            <td><?php echo $loge['email'] ?></td>
+                            <td><?php echo $loge['telephone'] ?></td>
+                            <td><a href="#" class="btn">voir</a><?php echo $loge['date_debut'] ?></td>
+                            <td><?php echo $loge['date_sortie'] ?></td>
+                            <td><?php echo $loge['cout'] ?></td>
+                            <td><?php echo $loge['adresse'] ?></td>
+                        </tr>
+                        <?php } ?>
+                        <!-- <tr>
+                            <td>sonna</td>
+                            <td>05/01/2025</td>
+                            <td>100000 XAF</td>
+                            <td>05/01/2025</td>
+                            <td><a href="#" class="btn">voir</a></td>
+                            <td>4</td>
+                            <td>05/01/2025</td>
+                            <td>05/01/2025</td>
                         </tr>
                         <tr>
                             <td>sonna</td>
@@ -144,24 +191,10 @@
                             <td>100000 XAF</td>
                             <td><a href="#" class="btn">voir</a></td>
                             <td>4</td>
-                        </tr>
-                        <tr>
-                            <td>sonna</td>
-                            <td>05/01/2025</td>
-                            <td>100000 XAF</td>
-                            <td><a href="#" class="btn">voir</a></td>
-                            <td>4</td>
-                        </tr>
-                        <tr>
-                            <td>sonna</td>
-                            <td>05/01/2025</td>
-                            <td>100000 XAF</td>
-                            <td><a href="#" class="btn">voir</a></td>
-                            <td>4</td>
-                        </tr>
+                        </tr> -->
                     </table>
                 </div>
-                <div class="new-locataire">
+                <!-- <div class="new-locataire">
                     <div class="title">
                         <h2>nouveau locataire</h2>
                         <a href="#" class="btn">view all</a>
@@ -217,7 +250,7 @@
                             <td>04</td>
                         </tr>
                     </table>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

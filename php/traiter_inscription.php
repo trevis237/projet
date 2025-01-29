@@ -1,5 +1,5 @@
 <?php
-// session_start();
+session_start();
 
 include('connexion.php');
 
@@ -30,5 +30,16 @@ if(!empty($mail) && !empty($password)){
         header('location:../pages/ajoueter_logement.php');
         // echo "inscription reussie !";
     //  }
+    $id_proprio=$bdd->prepare("SELECT id_user FROM user WHERE email = :email AND password = :pass");
+
+    $id_proprio->execute(["email"=>$mail,"pass"=>$password]);
+
+    $id=$id_proprio->fetch();
+    if($id){
+        // session_start();
+
+      $_SESSION['id']=$id['id_user'];
+      $_SESSION['nom']=$mail;
+    }
 }
 ?>
