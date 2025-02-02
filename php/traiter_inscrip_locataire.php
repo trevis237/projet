@@ -28,7 +28,7 @@ if(!empty($mail) && !empty($password)){
         // }else{
 
 
-        header('location:../pages/appar_dispo.php');
+        header('location:../index.php');
         // echo "inscription reussie !";
     //  }
 }

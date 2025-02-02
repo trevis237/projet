@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/dashboard.css">
+    <script src="../javascript/filtre.js"></script>
 </head>
 <body>
     <div class="side-menu">
@@ -18,12 +19,12 @@
         </div>
         <ul>
             <li><i class="fa-solid fa-bars"></i>&nbsp; <a href=""><span>dashboard</span></a> </li>
-            <li><i class="fa-solid fa-home"></i>&nbsp; <a href=""><span>ma propriete</span></a></li>
-            <li><i class="fa-solid fa-user"></i>&nbsp; <span>mes locataires</span></li>
+            <li><i class="fa-solid fa-home"></i>&nbsp; <a href="dash_propriete.php"><span>ma propriete</span></a></li>
+            <li><i class="fa-solid fa-user"></i>&nbsp; <a href="dash_locataire.php"><span>mes locataires</span></a></li>
             <li><i class="fa-solid fa-bars"></i>&nbsp; <span>statistique</span></li>
             <li><i class="fa-solid fa-money-bill"></i>&nbsp; <span>bilan mensuel</span></li>
             <li><i class="fa-solid fa-money-bill"></i>&nbsp; <span>total recette</span></li>
-            <li><i class="fa-solid fa-out"></i>&nbsp; <span>quitter</span></li>
+            <li><i class="fa-solid fa-out"></i>&nbsp; <a href="../php/deconexion.php"><span>quitter</span></a></li>
         </ul>
     </div>
     <div class="container">
@@ -39,8 +40,8 @@
         <div class="header">
             <div class="nav">
                 <div class="seach">
-                    <input type="text" name="" id="" placeholder="recherche..">
-                    <button type="submit" value=""><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <input type="text" name="" id="search" placeholder="recherche.." onkeyup="filterTable()">
+                    <button onclick="filterTable()" type="submit" value=""><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
                 <div class="user">
                     <a href="#" class="btn">add new</a>
@@ -118,10 +119,9 @@
                     }else{
                         $user=null;
                     }
-                    $biens=$bdd->prepare("SELECT COUNT(l.Id_logement ) 
-                    FROM user u, reservation r, logement l
-                     WHERE  u.id_user=r.id_user AND l.Id_logement=r.Id_logement AND l.id_user= :user AND u.statut='0'");
-
+                    $biens=$bdd->prepare("SELECT COUNT(*) as total_non_occupe
+                    FROM logement l
+                     WHERE l.id_user= :user");
                     $biens->execute(["user"=>$user]);
                     $all=$biens->fetchColumn();
                     
@@ -129,7 +129,7 @@
                     ?>
                     <div class="box">     
                         <h1><?php echo $all ?></h1>
-                        <h3>appartement occupe</h3>
+                        <h3>nombre d'appartement</h3>
                     </div>
                         
                     <div class="icon-case">
@@ -146,8 +146,8 @@
                         $user=null;
                     }
                     $loge=$bdd->prepare("SELECT COUNT(*) as total_non_occupe
-                    FROM logement l
-                     WHERE l.id_user= :user AND NOT EXISTS (SELECT 1) FROM reservation r WHERE r.Id_logement=l.Id_logement");
+                    FROM logement l, reservation r
+                     WHERE l.id_user =:user AND r.id_reservation is null");
 
                     $loge->execute(["user"=>$user]);
                     $maison=$loge->fetch(PDO::FETCH_ASSOC);
@@ -181,9 +181,18 @@
                     }else{
                         $user=null;
                     }
-                    $reservation= $bdd->prepare("SELECT u.nom, u.prenom, u.email, u.telephone, r.date_debut, r.date_sortie, r.cout, l.adresse
-                     FROM user u, reservation r, logement l
-                     WHERE  u.id_user=r.id_user AND l.Id_logement=r.Id_logement AND l.id_user= :user AND u.statut='0'");
+                    $reservation= $bdd->prepare("SELECT u.nom, u.prenom, u.email, u.telephone, r.date_debut, r.date_sortie, r.cout, l.adresse,
+                    CASE 
+                    WHEN r.Id_logement IS null AND h.id_reservation IS null
+                    THEN 'libre'
+                    WHEN h.date < NOW() THEN 'libre'
+                    ELSE 'occupe'
+                    END AS etat
+                     FROM logement l
+                      LEFT JOIN reservation r ON l.Id_logement=r.Id_logement
+                      LEFT JOIN user u ON u.id_user=u.id_user
+                     LEFT JOIN historique_reservation h ON r.id_reservation=h.id_reservation
+                     WHERE  u.id_user=r.id_user AND l.id_user= :user AND u.statut='0'");
 
                     $reservation->execute(["user"=>$user]);
 
@@ -193,7 +202,7 @@
                 
                     
 ?>
-                    <table>
+                    <table id="tenantTable">
                         <tr>
                             <th>nom</th>
                             <th>prenom</th>
@@ -203,6 +212,7 @@
                             <th>date de sortie</th>
                             <th>cout</th>
                             <th>adresse</th>
+                            <th>etat</th>
                         </tr>
                         <?php foreach($locataires as $locataire){ ?>
                         <tr>
@@ -214,6 +224,7 @@
                             <td><?php echo $locataire['date_sortie'] ?></td>
                             <td><?php echo $locataire['cout'] ?></td>
                             <td><?php echo $locataire['adresse'] ?></td>
+                            <td><?php echo $locataire['etat'] ?></td>
                         </tr>
                   <?php 
                         }
@@ -221,6 +232,7 @@
                     echo "aucun locataire trouve";
                 }
                          ?>
+                         
                         <!-- <tr>
                             <td>sonna</td>
                             <td>05/01/2025</td>
@@ -231,6 +243,8 @@
                             <td>05/01/2025</td>
                             <td>05/01/2025</td>
                         </tr>
+                        FROM user u, reservation r, logement l, historique_reservation h
+                     WHERE  u.id_user=r.id_user AND l.Id_logement=r.Id_logement AND l.id_user= :user AND u.statut='0'");
                         <tr>
                             <td>sonna</td>
                             <td>05/01/2025</td>

@@ -23,7 +23,7 @@
             <li><i class="fa-solid fa-bars"></i>&nbsp; <span>statistique</span></li>
             <li><i class="fa-solid fa-money-bill"></i>&nbsp; <span>bilan mensuel</span></li>
             <li><i class="fa-solid fa-money-bill"></i>&nbsp; <span>total recette</span></li>
-            <li><i class="fa-solid fa-out"></i>&nbsp; <span>quitter</span></li>
+            <li><i class="fa-solid fa-out"></i>&nbsp; <a href="../php/deconexion.php"><span>quitter</span></a></li>
         </ul>
     </div>
     <div class="container">
@@ -39,7 +39,7 @@
         <div class="header">
             <div class="nav">
                 <div class="seach">
-                    <input type="text" name="" id="" placeholder="recherche..">
+                    <input type="text" name="seach" id="" placeholder="recherche..">
                     <button type="submit" value=""><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
                 <div class="user">
@@ -52,7 +52,7 @@
                 </div>
             </div>
         </div> 
-        <div class="content">
+        <!-- <div class="content">
             <div class="cards">
                 <div class="card">
                         <div class="box">     
@@ -61,7 +61,6 @@
                         </div>
                             
                         <div class="icon-case">
-                            <!-- <img src="../asset/th (1).jpg" alt=""> -->
                             <i class="fa-solid fa-person"></i>
                         </div>
                 </div>
@@ -73,7 +72,6 @@
                         </div>
                             
                         <div class="icon-case">
-                            <!-- <img src="../asset/th (1).jpg" alt=""> -->
                             <i class="fa-solid fa-money-bill"></i>
                         </div>
                 </div>
@@ -85,7 +83,6 @@
                     </div>
                         
                     <div class="icon-case">
-                        <!-- <img src="../asset/th (1).jpg" alt=""> -->
                         <i class="fa-solid fa-home"></i>
                     </div>
                 </div>
@@ -97,7 +94,6 @@
                     </div>
                         
                     <div class="icon-case">
-                        <!-- <img src="../asset/th (1).jpg" alt=""> -->
                         <i class="fa-solid fa-person"></i>
                     </div>
                 </div>
@@ -219,7 +215,7 @@
                     </table>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </body>
 </html>
