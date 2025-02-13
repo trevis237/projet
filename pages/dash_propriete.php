@@ -181,7 +181,12 @@
                     }else{
                         $user=null;
                     }
-                    $home= $bdd->prepare("SELECT * FROM logement WHERE id_user = :user");
+                    $home= $bdd->prepare("SELECT l.*, 
+                    CASE  
+                    WHEN COUNT(r.id_reservation) > 0 AND MAX(r.date_sortie) >= NOW() THEN 'occupe'
+                    ELSE 'libre' END AS statut FROM logement l LEFT JOIN reservation r 
+                    ON l.Id_logement = r.Id_logement WHERE l.id_user = :user
+                    GROUP BY l.Id_logement");
 
                     $home->execute(["user"=>$user]);
 
@@ -203,6 +208,7 @@
                             <th>description</th>
                             <th>ville</th>
                             <th>code_postal</th>
+                            <th>statut</th>
                         </tr>
                         <?php foreach($logement as $loge){ ?>
                         <tr>
@@ -214,6 +220,7 @@
                             <td><?php echo $loge['description'] ?></td>
                             <td><?php echo $loge['ville'] ?></td>
                             <td><?php echo $loge['code_postal'] ?></td>
+                            <td><?php echo $loge['statut'] ?></td>
                         </tr>
                         <?php } ?>
                         <!-- <tr>

@@ -28,6 +28,7 @@ h1{
 .container{
     height: 500px;
     width: 40%;
+    margin-right: 50px;
     border: 1px solid;
     margin-left: 25%;
     margin-top: 75px;
@@ -78,4 +79,81 @@ h1{
 }
 .button{
     text-align: center;
+}
+/* .cadre{
+    border: 2px solid #000;
+    width: 300px;
+    height: 950px;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 50px;
+} */
+.conteneur{
+    max-width: 400px;
+    margin: auto;
+}
+.cadre{
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+    width: 300px;
+    height: 550px;
+    padding-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    /* padding-bottom: 50px; */
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* overflow: visible; */
+}
+.entete{
+    padding: 15px;
+}
+.desc{
+    padding: 15px;
+}
+.image{
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-bottom: 100px;
+}
+.list{
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+}
+.list li{
+    display: flex;
+    padding: 10px;
+    border-bottom: 1px solid black;
+}
+.list li:first-child{
+    
+    border-top: 1px solid black;
+}
+ .entete{
+    width: auto;
+    max-height: 50%;
+ }
+.pied{
+    display: flex;
+    justify-content: center;
+}
+.pied1{
+    padding: 10px;
+    float: left;
+}
+.pied2{
+    padding: 10px;
+    float: right;
+}
+.card-link{
+    text-decoration: none;
+    color: #007bff;
+    margin-left: 10px;
+}
+.card-link:hover{
+    text-decoration: underline;
 }

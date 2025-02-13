@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<?php 
+        session_start(); ?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -92,18 +94,17 @@
 
         <?php 
         include("../php/connexion.php");
-
         $id=$_GET['id'];
         //convertir la chaine en tableau
       $idArray= explode(',', $id);
         $nbjours=$_GET['nbjours'];
-        $pu=$_GET['pu'];
+        $debut=$_GET['db'];
+        $fin=$_GET['fin'];
 
-        $total = (int)$pu * $nbjours;
         // echo $total;
         if(!empty($idArray)){
             $placeholders = str_repeat('?,', count($idArray) -1) . '?';
-        $requetes = $bdd->prepare("SELECT * FROM logement WHERE Id_logement IN ($placeholders)");
+        $requetes = $bdd->prepare("SELECT * FROM logement WHERE Id_logement IN ($placeholders) ORDER BY prix ASC");
 
 
         $requetes->execute($idArray);
@@ -111,18 +112,37 @@
     }else{
         $logements = [];
     }
+    //stocker les information dans la session
+    // $_SESSION['appartement_dispo'] = [
+    //     'id'=>$id,
+    //     'bjr'=>$nbjours,
+    //     'pu'=>$pu,
+    //     'logements'=>$logements
+    // ];
+
 
          ?>
 
 
         <div class="content">
             <?php
-            foreach($logements as $logement) {?>
+            foreach($logements as $logement) {
+                $id_loge = $logement['Id_logement'];
+                $proprio=$logement['id_user'];
+                 $prix= $logement['prix'];
+                 $total = (int)$prix * $nbjours;
+                 $link="./reservation.php?id_loge=".$id_loge."&pu=".$total;
+                 $cout = $bdd->prepare("UPDATE reservation SET cout = :cout WHERE date_debut = :debut AND date_sortie = :fin");
+                 $cout->execute(["cout"=>$total,"debut"=>$debut,"fin"=>$fin]);
+                 
+              echo   $_SESSION['proprietaire']=$proprio; ?>
+                 
+
 
             
             <div class="s">
                 <div>
-                    <a href="./reservation.php"><img src="<?php echo $logement["photo"]; ?>" alt="" class="tof"></a>
+                    <a href="<?php echo $link ?>"><img src="<?php echo $logement["photo"]; ?>" alt="" class="tof"></a>
                 
                 </div>
                 <div class="desc">
@@ -134,9 +154,9 @@
                         <!-- <span><?php echo $logement["code_postal"]; ?></span> -->
                     </div>
                     <span>surface:<?php echo $logement["surface"] ?>m2</span>
-                    <span>prix total= <?php echo $total ?> XAF</span>
+                    <span>prix total= <?php echo  $logement["prix"] ?> XAF</span>
                     <p>nature: <?php echo $logement["nature"] ?><br><?php echo $logement["description"] ?></p>
-                    <a href="./reservation.php"><input type="submit"  class="bouton" value="rechercher"></a>
+                    <a href="<?php echo $link ?>" ><input type="submit"  class="bouton" value="reserver"></a>
                 </div>
             </div>
         <?php } ?>

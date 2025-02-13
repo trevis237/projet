@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("connexion.php");
 // include "idLocataire.php";
 
@@ -23,9 +24,9 @@ if($localisation) {
     if(!empty($logement)){
     $ids=array_column($logement, 'Id_logement');
     $idsString=implode(',', $ids);//concatene les idetifiants en une chaine de caractere
-    $prix=$logement['prix'];
+    $prix=array_column($logement,'prix');
 
-    $total=(int)$prix * $nb_jours;
+   echo $total=(int)$prix * $nb_jours;
 
 //insertion dans reservation
 $req = $bdd->prepare("INSERT INTO reservation(date_debut, date_sortie, cout, Id_logement , id_user)
@@ -33,7 +34,7 @@ $req = $bdd->prepare("INSERT INTO reservation(date_debut, date_sortie, cout, Id_
 
 $req->execute(["d_start"=>$debut, "d_end"=>$fin, "prix"=>$total, "id_logement"=>$idsString, "id"=>$user]);
 
-header('location:../pages/appar_dispo.php?id='.$idsString.'&nbjours='.$nb_jours.'&pu='.$prix);
+header('location:../pages/appar_dispo.php?id='.$idsString.'&nbjours='.$nb_jours.'&db='.$debut.'&fin='.$fin);
 exit;
 }else{
     echo "pas de logement disponible pour l'adresse '$localisation'.";

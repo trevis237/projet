@@ -44,6 +44,8 @@ if($id){
 
   $_SESSION['locataire']=$id['id_user'];
   $client=$_SESSION['locataire'];
+  
+  $_SESSION['email_loc']=$mail;
 }
 
 $request=$bdd->query("SELECT MAX(id_reservation) as reser FROM reservation");

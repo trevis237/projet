@@ -11,7 +11,49 @@
     <link rel="stylesheet" href="../css/reservatio.css">
 </head>
 <body>
+    <?php
+    include('../php/connexion.php');
+    
+    $total=$_GET['pu'];
+     if(isset($_GET['id_loge'])) {
+      echo  $id=$_GET['id_loge'];
+        $identifiants= $bdd->query("SELECT * FROM logement WHERE Id_logement = '$id'");
+        $pdos= $identifiants->fetchAll(PDO::FETCH_ASSOC);
+        $link="../php/annuler_reservation.php?id_loge=".$id."&pu=".$total?>
+   
     <section class="corps">
+        <div class="conteneur">
+            <div class="cadre">
+            <?php 
+            foreach ($pdos as $pdo ) { ?>
+                <div class="entete">
+                    <img class="image" src="<?php echo $pdo['photo'] ?>" alt="">
+                </div>
+                <div class="desc">
+                    <h3><?php echo $pdo['nom'] ?></h3>
+                    <p><?php echo $pdo['description'] ?></p>
+                    <ul class="list">
+                        <li>nature: <?php echo $pdo['nature'] ?></li>
+                        <li>prix: <?php echo $total?> XAF</</li>
+                        <li>code postal: <?php echo $pdo['code_postal'] ?></li>
+                    </ul>
+                </div>
+                <div class="pied">
+                    <div class="pied1">
+                        <a class="card-link" href=""><?php echo $pdo['ville'] ?></</a>
+                    </div>
+                    <div class="pied2">  
+                        <a class="card-link" href=""><?php echo $pdo['adresse'] ?></a>
+                    </div>
+                </div>
+            <div class="button">
+                <a class="card-link" href="<?php echo $link ?>"><button class="submit">annuler</button></a>
+                
+            </div>
+              <?php   } ?>
+            </div>
+        </div>
+        <?php  } ?>
         <form class="container" action="../php/traiter_reservation.php" method="post">
             <div>
                 <h1>veullez remplir ce formulaire pour reserver </h1>

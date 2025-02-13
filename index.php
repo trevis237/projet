@@ -15,12 +15,15 @@
     <header>
         <?php
         include('./php/connexion.php');
-        if(isset($_SESSION['nom'])){
+        if(isset($_SESSION['nom']) || isset($_SESSION['email_loc'])){
             // echo'acun';
             $user=$_SESSION['nom'];
+          //  $mail=$_SESSION['email_loc'];
         }else{
             $user=null;
+            $mail=null;
         }
+        
         ?>
         <div class="navbar">
             <div class="logo">
@@ -34,11 +37,11 @@
             </ul>
             <div class="case">
                     <a href=""><i class="fa-solid fa-user"><?php echo $user ?></i></a>
-                    <a href=""></a>
+                    <a href=""><?php //echo $mail ?></a>
                 </div>
             <div class="buttons">
                 <a href="" class="action-button pro">espace pro</a>
-                <a href="" class="action-button">se connecter</a>
+                <a href="./pages/connexion.php" class="action-button">se connecter</a>
             </div>
             <div class="burger-menu-button">
                 <i class="fa-solid fa-bars"></i>

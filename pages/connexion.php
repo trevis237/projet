@@ -70,7 +70,7 @@
                         <span>avez vous un compte? <a href="#" onclick="login()">se connecter</a></span>
                         <header>inscription</header>
                     </div>
-                    <div class="two-forms">
+                    <!-- <div class="two-forms">
                         <div class="input-box">
                             <input type="text" name="nom" class="input-field" id="" placeholder="votre nom">
                             <i class="fa-solid fa-user"></i>
@@ -79,7 +79,7 @@
                             <input type="text" name="prenom" class="input-field" id="" placeholder="votre prenom">
                             <i class="fa-solid fa-user"></i>
                         </div>
-                    </div>
+                    </div> -->
                     
                     <div class="input-box">
                         <input type="email" name="mail" class="input-field" id="" placeholder="votre email" required>
@@ -89,10 +89,10 @@
                         <input type="password" name="password" class="input-field" id="" placeholder="votre password" required>
                         <i class="fa-solid fa-lock"></i>
                     </div>
-                    <div class="input-box">
+                    <!-- <div class="input-box">
                         <input type="password" name="cpassword" class="input-field" id="" placeholder="confirmer votre password" required>
                         <i class="fa-solid fa-lock"></i>
-                    </div>
+                    </div> -->
                     <div class="input-box">
                         <input type="submit" name="" class="submit" id="" value="s'inscrire">
                     <div class="two-col">
