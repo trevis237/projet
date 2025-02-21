@@ -1,64 +1,74 @@
 <?php
+
 session_start();
-include("connexion.php");
-require_once '../Mail/MailSender.php';
+include("connexion.php"); 
+include 'envoie_mail.php';
+
 
 
 $nom = $_POST['nom'];
 $prenom = $_POST['prenom'];
-$mail = $_POST['mail'];
+$email = $_POST['mail'];
 $telephone = $_POST['telephone'];
 $statut = 0;
+$senderEmail = 'trevisscott47@gmail.com';
+
+// requete permetant     de selectioner l'adresse du bailleur
+if(isset($_SESSION['proprietaire'])){
+    echo $proprio = $_SESSION['proprietaire'];
+ 
+    $id= $bdd->query("SELECT email FROM user WHERE id_user = '$proprio' AND statut = '1'");
+    $mail_proprio = $id->fetch(PDO::FETCH_ASSOC);
+    $ownerEmail = $mail_proprio['email'];
+ }else{
+     $proprio = null;
+ }
 
 
-if(!empty($nom) && !empty($prenom) && !empty($mail) && !empty($telephone)) {
-    
-$successMessage = '';
-$errorMessage = '';
+if(!empty($nom) && !empty($prenom) && !empty($email) && !empty($telephone)) {
+
 
     
 // $recipientEmail = $_POST['email'];
-// requete permetant     de selectioner l'adresse du bailleur
-if(isset($_SESSION['proprietaire'])){
-   echo $proprio = $_SESSION['proprietaire'];
-}else{
-    $proprio = null;
-}
-// $recuperation->seelct email from logement where id_user= $id_proprio;
-$propriotaire = $bdd->query("SELECT email FROM user WHERE id_user = '$proprio' AND statut = '1'");
-$mail_proprio= $propriotaire->fetch(PDO::FETCH_ASSOC);
-echo $mail=$propriotaire['email'];
-    $mailSender = new MailSender();
-    $mailSender->setsubject("Bonjour mr/Mme vous avez un nouveau client dans votre appartement");
-    $mess = 'Bienvenue sur cette application';
-    $mailSender->setMessage($mess);
-    $mailSender->setrecipient($mail);//prend en compte le recipient du mail
-// $db->prepare
-    if ($mailSender->sendMail()) {
-        $successMessage = "L'email a été envoyé avec succès à $mail.";
-    } else {
-        $errorMessage = "Une erreur s'est produite lors de l'envoi de l'email : " . $mailSender->getresult();
-    }
-}
 
 
     // $tab=$requetes->fetch();
     // $email= $tab['email'];
 
     //verification de l'unicite de l'email
-    $chekEmail = $bdd->prepare("SELECT * FROM user WHERE email = :mail");
+    $chekEmail = $bdd->prepare("SELECT * FROM user WHERE email = :mail AND statut = '0'");
 
-    $chekEmail->execute(["mail"=>$mail]);
+    $chekEmail->execute(["mail"=>$email]);
     if($chekEmail->rowCount() > 0) {
         echo "cet email est deja utilise";
     }else{
         $requetes = $bdd->prepare("INSERT INTO user(nom, prenom, email, telephone, password, statut) VALUES (:nom, :prenom, :email, :telephone, '', :statut)");
     
-        $requetes->execute(["nom"=>$nom,"prenom"=>$prenom,"email"=>$mail,"telephone"=>$telephone,"statut"=>$statut]);
+        $requetes->execute(["nom"=>$nom,"prenom"=>$prenom,"email"=>$email,"telephone"=>$telephone,"statut"=>$statut]);
 
-        // header('location:../pages/inscription_locataire.php?email='.$mail);
+        $subjectToTenant = 'confirmation de votre reservation'; //objet pour l'email du locataire
+        $bodyToTenant = 'Merci, votre reseration a ete confirme !'; //corps de l'email pour le locataire
+
+        $subjectToOwner = 'Nouvelle reservation'; //objet pour l'email du proprietaire
+        $bodyToOwner = 'un nouvel utilisateur a fait une reservation.Detail:...'; //corps de l'email pour le proprietaire
+
+        //envoyer l'email au locataire
+        if(sendMail($senderEmail ,$email, $subjectToTenant, $bodyToTenant)) {
+            echo 'un email de confirmation a ete envoye au locataire.'; //message de succes pour le locataire
+        }else{
+            echo 'L\'email de confirmation au locataire n\'a pas pu etre envoye.'; //message d'erreur' pour le locataire
+        }
+
+        //envoyer l'email au proprietaire
+        if(sendMail($senderEmail ,$ownerEmail, $subjectToOwner, $bodyToOwner)) {
+            echo 'un email de notification a ete envoye au proprietaire.'; //message de succes pour le proprietaire
+        }else{
+            echo 'L\'email de notification n\'a pas pu etre envoye.'; //message d'erreur' pour le proprietaire
+        }
+
+        header('location:../pages/inscription_locataire.php?email='.$email);
   }
 
-
+}
   
 ?>
