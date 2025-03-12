@@ -27,7 +27,7 @@
         ?>
         <div class="navbar">
             <div class="logo">
-                <a href="#">HOME</a>
+                <a href="#">HYHOUSE</a>
             </div>
             <ul class="links">
                 <li><a href="./pages/connexion.php">s'inscrire</a></li>

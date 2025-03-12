@@ -7,6 +7,45 @@
     <link rel="stylesheet" href="../css/ajoueter_logement.css">
 </head>
 <body>
+    
+<header>
+        
+        <div class="navbar">
+            <div class="logo">
+                <a href="#">HYHOUSE</a>
+            </div>
+            <ul class="links">
+                <li><a href="./pages/connexion.php">s'inscrire</a></li>
+                <li><a href="./pages/ajouter_proprietaire.php">mettre mon logement</a></li>
+                <li><a href="about">a propos</a></li>
+                <li><a href="contact">contact</a></li>
+            </ul>
+            <div class="case">
+                    <a href=""><i class="fa-solid fa-user"></i></a>
+                    <a href=""><?php //echo $mail ?></a>
+                </div>
+            <div class="buttons">
+                <a href="" class="action-button pro">espace pro</a>
+                <a href="./pages/connexion.php" class="action-button">se connecter</a>
+            </div>
+            <div class="burger-menu-button">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+        <div class="burger-menu">
+            <ul class="links">
+                <li><a href="./inscription.php">accueil</a></li>
+                <li><a href="/pages/ajouter_proprietaire.php">mettre mon logement</a></li>
+                <li><a href="about">a propos</a></li>
+                <li><a href="contact">contact</a></li>
+                <div class="divider">a</div>
+                <div class="buttons-burger-menu">
+                    <a href="" class="action-button pro">espace pro</a>
+                    <a href="" class="action-button">se connecter</a>
+                </div>
+            </ul>
+        </div>
+    </header>
     <header>
         <h1>bienvenu</h1>
         <p>ce site vous aide a avoir une visibibilite sur vos bien immobilier afin de <br> faire croitre votre chiffre d'affaire et toucher un nombre important de personne dans le monde. <br> faites nous confince pour une experience palpitente et inoubliable</p>

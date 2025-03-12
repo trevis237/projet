@@ -15,7 +15,7 @@
 <body>
     <div class="side-menu">
         <div class="brand-name">
-            <h1>brand</h1>
+            <h1>MYHOUSE</h1>
         </div>
         <ul>
             <li><i class="fa-solid fa-bars"></i>&nbsp; <a href=""><span>dashboard</span></a> </li>

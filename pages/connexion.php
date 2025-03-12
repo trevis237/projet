@@ -14,15 +14,15 @@
     <div class="wrapper">
         <nav class="nav">
             <div class="nav-logo">
-                <p>HOME</p>
+                <p>MYHOUSE</p>
             </div>
             <div class="nav-menu" id="navMenu">
-                <ul>
+                <!-- <ul>
                     <li><a href="#" class="link active">home</a></li>
                     <li><a href="#" class="link">blog</a></li>
                     <li><a href="#" class="link">service</a></li>
                     <li><a href="#" class="link">about</a></li>
-                </ul>
+                </ul> -->
             </div>
             <div class="nav-button">
                 <button class="btn white-btn" id="loginbtn" onclick="login()">sing in</button>

@@ -17,7 +17,7 @@
     <header>
         <div class="navbar">
             <div class="logo">
-                <a class="lien" href="#">HOME</a>
+                <a class="lien" href="#">MYHOUSE</a>
             </div>
             <ul class="links">
                 <li><a class="lien" href="hero">accueil</a></li>

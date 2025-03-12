@@ -10,7 +10,45 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/ajouter_prorietaire.css">
 </head>
-<body>
+<body>    
+<header>
+        
+        <div class="navbar">
+            <div class="logo">
+                <a href="#">HYHOUSE</a>
+            </div>
+            <ul class="links">
+                <li><a href="./pages/connexion.php">s'inscrire</a></li>
+                <li><a href="./pages/ajouter_proprietaire.php">mettre mon logement</a></li>
+                <li><a href="about">a propos</a></li>
+                <li><a href="contact">contact</a></li>
+            </ul>
+            <div class="case">
+                    <a href=""><i class="fa-solid fa-user"></i></a>
+                    <a href=""><?php //echo $mail ?></a>
+                </div>
+            <div class="buttons">
+                <a href="" class="action-button pro">espace pro</a>
+                <a href="./pages/connexion.php" class="action-button">se connecter</a>
+            </div>
+            <div class="burger-menu-button">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+        <div class="burger-menu">
+            <ul class="links">
+                <li><a href="./inscription.php">accueil</a></li>
+                <li><a href="/pages/ajouter_proprietaire.php">mettre mon logement</a></li>
+                <li><a href="about">a propos</a></li>
+                <li><a href="contact">contact</a></li>
+                <div class="divider">a</div>
+                <div class="buttons-burger-menu">
+                    <a href="" class="action-button pro">espace pro</a>
+                    <a href="" class="action-button">se connecter</a>
+                </div>
+            </ul>
+        </div>
+    </header>
     <section class="corps">
         <form class="container" action="../php/traiter_proprio.php" method="post">
             <div>

@@ -12,6 +12,39 @@
     <link rel="stylesheet" href="../css/reservatio.css">
 </head>
 <body>
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <a class="lien" href="#">MYHOUSE</a>
+            </div>
+            <ul class="links">
+                <li><a class="lien" href="hero">accueil</a></li>
+                <li><a class="lien" href="media">media</a></li>
+                <li><a class="lien" href="about">a propos</a></li>
+                <li><a class="lien" href="contact">contact</a></li>
+            </ul>
+            <div class="buttons">
+                <a  href="" class="action-button pro">espace pro</a>
+                <a  href="./inscription.php" class="action-button">se connecter</a>
+            </div>
+            <div class="burger-menu-button">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+        <div class="burger-menu">
+            <ul class="links">
+                <li><a class="lien" href="hero">accueil</a></li>
+                <li><a class="lien" href="media">media</a></li>
+                <li><a class="lien" href="about">a propos</a></li>
+                <li><a class="lien" href="contact">contact</a></li>
+                <div class="divider"></div>
+                <div class="buttons-burger-menu">
+                    <a href="" class="action-button pro">espace pro</a>
+                    <a href="" class="action-button">se connecter</a>
+                </div>
+            </ul>
+        </div>
+    </header>
     <?php
     include('../php/connexion.php');
     
