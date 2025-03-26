@@ -332,4 +332,8 @@ header{
 @media (max-width: 516px) {
 
     .burger-menu{
-        left
+        left: 2rem;
+        width: unset;
+    }
+
+}
