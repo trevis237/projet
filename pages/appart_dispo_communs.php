@@ -18,14 +18,14 @@
                 <a class="lien" href="#">HOME</a>
             </div>
             <ul class="links">
-                <li><a class="lien" href="hero">accueil</a></li>
-                <li><a class="lien" href="media">media</a></li>
+                <li><a class="lien" href="connexion.php">se connecter</a></li>
+                <li><a class="lien" href="ajoueter_logement.php">mettre mon logement</a></li>
                 <li><a class="lien" href="about">a propos</a></li>
                 <li><a class="lien" href="contact">contact</a></li>
             </ul>
             <div class="buttons">
-                <a  href="" class="action-button pro">espace pro</a>
-                <a  href="./inscription.php" class="action-button">se connecter</a>
+                <a  href="#" class="action-button pro">espace pro</a>
+                <a  href="connexion.php" class="action-button">se connecter</a>
             </div>
             <div class="burger-menu-button">
                 <i class="fa-solid fa-bars"></i>
@@ -33,14 +33,14 @@
         </div>
         <div class="burger-menu">
             <ul class="links">
-                <li><a class="lien" href="hero">accueil</a></li>
-                <li><a class="lien" href="media">media</a></li>
+                <li><a class="lien" href="connexion.php">se connecter</a></li>
+                <li><a class="lien" href="ajoueter_logement.php">mettre mon logement</a></li>
                 <li><a class="lien" href="about">a propos</a></li>
                 <li><a class="lien" href="contact">contact</a></li>
                 <div class="divider"></div>
                 <div class="buttons-burger-menu">
-                    <a href="" class="action-button pro">espace pro</a>
-                    <a href="" class="action-button">se connecter</a>
+                    <a href="#" class="action-button pro">espace pro</a>
+                    <a href="connexion.php" class="action-button">se connecter</a>
                 </div>
             </ul>
         </div>

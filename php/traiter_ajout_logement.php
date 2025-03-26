@@ -27,7 +27,7 @@ if(!empty($nom) && !empty($adresse) && !empty($surface) && !empty($prix) && !emp
         $path_photo_dbb = URL ."asset/" . $nom_photo;
        // echo $path_photo_dbb;
 
-        //on vopie sur le serveur
+        //on copie sur le serveur
         $path_folder = RACINE_SITE . "asset/" . $nom_photo;
 
         copy($_FILES['photo']['tmp_name'], $path_folder);

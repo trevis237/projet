@@ -20,18 +20,18 @@
             <li><i class="fa-solid fa-bars"></i>&nbsp; <a href=""><span>dashboard</span></a> </li>
             <li><i class="fa-solid fa-home"></i>&nbsp; <a href=""><span>ma propriete</span></a></li>
             <li><i class="fa-solid fa-user"></i>&nbsp; <span>mes locataires</span></li>
-            <li><i class="fa-solid fa-bars"></i>&nbsp; <span>statistique</span></li>
-            <li><i class="fa-solid fa-money-bill"></i>&nbsp; <span>bilan mensuel</span></li>
+            <li><i class="fa-solid fa-chart-simple"></i>&nbsp; <span>statistique</span></li>
+            <li><i class="fa-solid fa-calendar"></i></i>&nbsp; <span>bilan mensuel</span></li>
             <li><i class="fa-solid fa-money-bill"></i>&nbsp; <span>total recette</span></li>
-            <li><i class="fa-solid fa-out"></i>&nbsp; <span>quitter</span></li>
+            <li><i class="fa-solid fa-circle-xmark"></i>&nbsp; <span>quitter</span></li>
         </ul>
     </div>
     <div class="container">
         <?php 
         include('../php/connexion.php');
-        if(isset($_SESSION['nom'])){
+        if(isset( $_SESSION['nom'])){
             // echo'acun';
-            $name=$_SESSION['nom'];
+          echo $_SESSION['nom'];
         }else{
             $name=null;
         }
@@ -113,7 +113,7 @@
                     include('../php/connexion.php');
                     if(isset($_SESSION['id'])){
                         // echo'acun';
-                        $user=$_SESSION['id'];
+                       var_dump( $user=$_SESSION['id']);
                     }else{
                         $user=null;
                     }

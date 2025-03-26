@@ -36,9 +36,9 @@
         <!-- formulaire -->
          <div class="form-box">
             <!-- formulaire connexion -->
-                <form action="../php/traiter_connexion_communs.php" method="post" class="login-container" id="login">
+                <form action="../php/cnx.php" method="post" class="login-container" id="login">
                     <div class="top">
-                        <span>vous avez un compte? <a href="#" onclick="register()">s'inscrire</a></span>
+                        <span>vous n'avez pas un compte? <a href="#" onclick="register()">s'inscrire?</a></span>
                         <header>connexion</header>
                     </div>
                    
@@ -67,7 +67,7 @@
             <!-- formulaire inscription -->
                 <form action="../php/traiter_imscription_communs.php" method="post" class="register-container" id="register">
                     <div class="top">
-                        <span>avez vous un compte? <a href="#" onclick="login()">se connecter</a></span>
+                        <span>avez vous un compte? <a href="#" onclick="login()">se connecter?</a></span>
                         <header>inscription</header>
                     </div>
                     <!-- <div class="two-forms">

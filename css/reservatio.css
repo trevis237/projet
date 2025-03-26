@@ -39,6 +39,9 @@ h1{
     display: flex;
     gap: 0px;
 }
+.card-link-b{
+    margin-bottom: 10px;
+}
 .input-field{
     font-size: 15px;
     color: black;
@@ -89,7 +92,7 @@ h1{
     padding-bottom: 50px;
 } */
 .conteneur{
-    max-width: 400px;
+    max-width: 450px;
     margin: auto;
 }
 .cadre{

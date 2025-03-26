@@ -22,7 +22,7 @@ if(!empty($mail) && !empty($password)){
 
       $_SESSION['id']=$id;}
 
-
+      if(password_verify($password, $result['password'])) {
     if($count > 0 && $statut > 0) {
         //verification du mot de passe
 
@@ -38,9 +38,9 @@ if(!empty($mail) && !empty($password)){
             exit;
         // }else{
             //mot de passe incorect
-            echo "mot de passe incorect.";
+          //  echo "mot de passe incorect.";
         // }  
-    }elseif($count > 0 && $statut == 0){
+    }else{
         //verification du mot de passe
 
         // if(password_verify($password, $result['password'])) {
@@ -50,18 +50,18 @@ if(!empty($mail) && !empty($password)){
                }else{
                    $user=null;
                }
-               header('location:../index.php');
+               header('location:../pages/index2.php');
              
              exit;
-         
+            }
         // }else{
             //mot de passe incorect
-            echo "mot de passe incorect.";
+           // echo "mot de passe incorect.";
         // } 
          
     }else{
         //aucun utilisateur trouve
-        echo "Email ou mot de passe incorect";
+        echo "mot de passe incorect";
     }
   
 }else{

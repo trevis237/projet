@@ -94,10 +94,23 @@
 
         <?php 
         include("../php/connexion.php");
+        $user=0;
+
+       // $localisation = '';
+       // $debut = '';
+       // $fin = '';
+        //$nb_jours = '';
+
+       // $_SESSION['logements'] = $logements;
+       // $_SESSION['nb_jours'] = $nb_jours;
+        //$_SESSION['debut'] = $debut;
+        //$_SESSION['fin'] = $fin;
+       // $_SESSION['total'] = $total;
+
         $id=$_GET['id'];
         //convertir la chaine en tableau
       $idArray= explode(',', $id);
-        $nbjours=$_GET['nbjours'];
+       $nbjours=$_GET['nbjours'];
         $debut=$_GET['db'];
         $fin=$_GET['fin'];
 
@@ -112,13 +125,6 @@
     }else{
         $logements = [];
     }
-    //stocker les information dans la session
-    // $_SESSION['appartement_dispo'] = [
-    //     'id'=>$id,
-    //     'bjr'=>$nbjours,
-    //     'pu'=>$pu,
-    //     'logements'=>$logements
-    // ];
 
 
          ?>
@@ -132,10 +138,14 @@
                  $prix= $logement['prix'];
                  $total = (int)$prix * $nbjours;
                  $link="./reservation.php?id_loge=".$id_loge."&pu=".$total;
-                 $cout = $bdd->prepare("UPDATE reservation SET cout = :cout WHERE date_debut = :debut AND date_sortie = :fin");
-                 $cout->execute(["cout"=>$total,"debut"=>$debut,"fin"=>$fin]);
+
+                //conservavtion des detail de la table reservation
+                $_SESSION['debut'] = $debut;
+                $_SESSION['fin'] = $fin;
+                $_SESSION['total'] = $total;
+                $_SESSION['logements'] = $id_loge;
                  
-              echo   $_SESSION['proprietaire']=$proprio; ?>
+               $_SESSION['proprietaire']=$proprio; ?>
                  
 
 
@@ -159,7 +169,9 @@
                     <a href="<?php echo $link ?>" ><input type="submit"  class="bouton" value="reserver"></a>
                 </div>
             </div>
-        <?php } ?>
+        <?php }
+        
+        ?>
             <!-- <div class="s">
                 <div>
                     <img src="../asset/premium_photo-1676321046262-4978a752fb15.jpeg" alt="" class="tof">

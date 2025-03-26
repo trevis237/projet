@@ -18,13 +18,13 @@
             <h1>MYHOUSE</h1>
         </div>
         <ul>
-            <li><i class="fa-solid fa-bars"></i>&nbsp; <a href=""><span>dashboard</span></a> </li>
+            <li><i class="fa-solid fa-bars"></i>&nbsp; <a href="dashboard.php"></a><span>dashboard</span></li>
             <li><i class="fa-solid fa-home"></i>&nbsp; <a href="dash_propriete.php"><span>ma propriete</span></a></li>
             <li><i class="fa-solid fa-user"></i>&nbsp; <a href="dash_locataire.php"><span>mes locataires</span></a></li>
-            <li><i class="fa-solid fa-bars"></i>&nbsp; <span>statistique</span></li>
-            <li><i class="fa-solid fa-money-bill"></i>&nbsp; <span>bilan mensuel</span></li>
+            <li><i class="fa-solid fa-chart-simple"></i>&nbsp; <span>statistique</span></li>
+            <li><i class="fa-solid fa-calendar"></i>&nbsp; <span>bilan mensuel</span></li>
             <li><i class="fa-solid fa-money-bill"></i>&nbsp; <span>total recette</span></li>
-            <li><i class="fa-solid fa-out"></i>&nbsp; <a href="../php/deconexion.php"><span>quitter</span></a></li>
+            <li><i class="fa-solid fa-circle-xmark"></i>&nbsp; <a href="../php/deconexion.php"><span>quitter</span></a></li>
         </ul>
     </div>
     <div class="container">
@@ -32,7 +32,7 @@
         include('../php/connexion.php');
         if(isset($_SESSION['nom'])){
             // echo'acun';
-            $name=$_SESSION['nom'];
+          var_dump(  $name=$_SESSION['nom']);
         }else{
             $name=null;
         }
@@ -185,7 +185,7 @@
                     CASE 
                     WHEN r.Id_logement IS null AND h.id_reservation IS null
                     THEN 'libre'
-                    WHEN h.date < NOW() THEN 'libre'
+                    WHEN r.date_sortie <= NOW() THEN 'libre'
                     ELSE 'occupe'
                     END AS etat
                      FROM logement l

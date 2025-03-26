@@ -9,7 +9,6 @@
 <body>
     
 <header>
-        
         <div class="navbar">
             <div class="logo">
                 <a href="#">HYHOUSE</a>
