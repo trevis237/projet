@@ -5,44 +5,37 @@ include('connexion.php');
 
 $mail = $_POST['mail'];
 $password = $_POST['password'];
+$cpassword = $_POST['cpassword'];
 $statut= 1;
 
 
-if(!empty($mail) && !empty($password)){
+if(!empty($mail) && !empty($password) && !empty($cpassword)){
+
+    if($password == $cpassword) {
 
     $hashpassword = password_hash($password, PASSWORD_DEFAULT);
 
-    $requetes = $bdd->prepare("UPDATE user SET password = :password WHERE email= :mail");
+    $requetes = $bdd->prepare("UPDATE user SET password = :password, cornfirmation_pass = :cpassword WHERE email= :mail");
 
-    $requetes->execute(["password"=>$hashpassword, "mail"=>$mail]);
-    // var_dump($requetes->fetchAll()) ;
-
-
-        //hachage du mot de passe
-         //$hashpassword = password_hash($password, PASSWORD_DEFAULT);
-
-        //verification de l'unicite de l'email
-        // $chekEmail = $bdd->prepare("SELECT * FROM user WHERE email = :mail");
-
-        // $chekEmail->execute(["mail"=>$mail]);
-        // if($chekEmail->rowCount() > 0) {
-        //     echo "cet email est deja utilise";
-        // }else{
-
-
+    $requetes->execute(["password"=>$hashpassword, "cpassword" =>$hashpassword, "mail"=>$mail]);
+   
         header('location:../pages/ajoueter_logement.php');
-        // echo "inscription reussie !";
-    //  }
-    $id_proprio=$bdd->prepare("SELECT id_user FROM user WHERE email = :email AND password = :pass");
+        
+        
 
-    $id_proprio->execute(["email"=>$mail,"pass"=>$hashpassword]);
+    }else{
+        echo "les mots de passe ne corrrespondent pas";
+    }
+    $id_proprio=$bdd->prepare("SELECT id_user FROM user WHERE email = :email AND password = :pass AND satut = :stat");
+
+    $id_proprio->execute(["email"=>$mail,"pass"=>$hashpassword,"stat"=>$statut]);
 
     $id=$id_proprio->fetch();
+    
+  var_dump(  $_SESSION['nom']=$mail);
     if($id){
-        // session_start();
 
       $_SESSION['id']=$id['id_user'];
-      $_SESSION['nom']=$mail;
     }
 }
 ?>

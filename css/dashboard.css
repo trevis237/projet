@@ -13,6 +13,13 @@ a{
     text-decoration: none;
     color: #fff;
 }
+.b{
+    text-decoration: none;
+    color: rebeccapurple;
+}
+a:hover{
+    color: rebeccapurple;
+}
 
 li{
     list-style: none;

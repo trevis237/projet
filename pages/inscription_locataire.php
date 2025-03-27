@@ -37,7 +37,7 @@
          <div class="form-box">
             <!-- formulaire connexion -->
    
-                <form action="../php/traiter_connexion.php" method="post" class="login-container" id="login">
+                <form action="../php/cnx.php" method="post" class="login-container" id="login">
                     <div class="top">
                         <span>vous avez un compte? <a href="#" onclick="register()">connexion</a></span>
                         <header>connexion</header>
@@ -98,10 +98,10 @@
                         <input type="password" name="password" class="input-field" id="" placeholder="votre password" required>
                         <i class="fa-solid fa-lock"></i>
                     </div>
-                    <!-- <div class="input-box">
+                    <div class="input-box">
                         <input type="password" name="cpassword" class="input-field" id="" placeholder="confirmer votre password" required>
                         <i class="fa-solid fa-lock"></i>
-                    </div> -->
+                    </div>
                     <div class="input-box">
                         <input type="submit" name="" class="submit" id="" value="s'inscrire">
                     <div class="two-col">

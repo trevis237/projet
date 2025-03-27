@@ -53,7 +53,7 @@
         $identifiants= $bdd->query("SELECT * FROM logement WHERE Id_logement = '$id'");
         $pdos= $identifiants->fetchAll(PDO::FETCH_ASSOC);
         // $proprietaire=$identifiants['id_user'];
-        $link="../php/annuler_reservation.php?id_loge=".$id."&pu=".$total?>
+       // $link="../php/annuler_reservation.php?id_loge=".$id."&pu=".$total?>
    
     <section class="corps">
         <div class="conteneur">
@@ -82,7 +82,7 @@
                     </div>
                 </div>
             <div class="button">
-                <a class="card-link-b" href="appar_dispo.php"><button class="submit">modifier</button></a>
+            <button onclick="history.back()" class="submit back">modifier</button>
                 
             </div>
               <?php   } ?>

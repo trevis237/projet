@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<?php session_start(); ?>
+<?php session_start()
+?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,12 +18,12 @@
             <h1>MYHOUSE</h1>
         </div>
         <ul>
-            <li><i class="fa-solid fa-bars"></i>&nbsp; <a href="dashboard.php"></a><span>dashboard</span></li>
+            <li><i class="fa-solid fa-bars"></i>&nbsp; <a href="dashboard.php"><span>dashboard</span></a></li>
             <li><i class="fa-solid fa-home"></i>&nbsp; <a href="dash_propriete.php"><span>ma propriete</span></a></li>
             <li><i class="fa-solid fa-user"></i>&nbsp; <a href="dash_locataire.php"><span>mes locataires</span></a></li>
-            <li><i class="fa-solid fa-chart-simple"></i>&nbsp; <span>statistique</span></li>
-            <li><i class="fa-solid fa-calendar"></i>&nbsp; <span>bilan mensuel</span></li>
-            <li><i class="fa-solid fa-money-bill"></i>&nbsp; <span>total recette</span></li>
+            <li><i class="fa-solid fa-chart-simple"></i>&nbsp; <a href=""><span>statistique</span></a></li>
+            <li><i class="fa-solid fa-calendar"></i>&nbsp; <a href=""><span>bilan mensuel</span></a></li>
+            <li><i class="fa-solid fa-money-bill"></i>&nbsp; <a href=""><span>total recette</span></a></li>
             <li><i class="fa-solid fa-circle-xmark"></i>&nbsp; <a href="../php/deconexion.php"><span>quitter</span></a></li>
         </ul>
     </div>
@@ -31,10 +32,13 @@
                     include('../php/connexion.php');
                     if(isset($_SESSION['nom'])){
                         // echo'acun';
-                        $user=$_SESSION['nom'];
+                         $user=$_SESSION['nom'];
+                         var_dump($user);
                     }else{
-                        $user=null;
+                        echo "non definit";
+                        $user= "invite";
                     }
+
                     ?>
         <div class="header">
             <div class="nav">
@@ -47,7 +51,7 @@
                     <i class="fa-regular fa-bell"></i>
                 </div>
                 <div class="case">
-                    <a href=""><i class="fa-solid fa-user"><?php echo $user ?></i></a>
+                    <a href="" class="b"><i class="fa-solid fa-user"></i><?php echo htmlspecialchars($user); ?></a>
                     <a href=""></a>
                 </div>
             </div>

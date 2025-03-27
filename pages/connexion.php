@@ -89,10 +89,10 @@
                         <input type="password" name="password" class="input-field" id="" placeholder="votre password" required>
                         <i class="fa-solid fa-lock"></i>
                     </div>
-                    <!-- <div class="input-box">
+                    <div class="input-box">
                         <input type="password" name="cpassword" class="input-field" id="" placeholder="confirmer votre password" required>
                         <i class="fa-solid fa-lock"></i>
-                    </div> -->
+                    </div>
                     <div class="input-box">
                         <input type="submit" name="" class="submit" id="" value="s'inscrire">
                     <div class="two-col">

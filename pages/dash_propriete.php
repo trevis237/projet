@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<?php session_start();?>
+<?php session_start()
+?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,7 +11,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/dashboard.css">
-    <script src="../javascript/filtre.js"></script>
 </head>
 <body>
     <div class="side-menu">
@@ -18,37 +18,41 @@
             <h1>MYHOUSE</h1>
         </div>
         <ul>
-            <li><i class="fa-solid fa-bars"></i>&nbsp; <a href="dashboard.php"></a><span>dashboard</span></li>
+            <li><i class="fa-solid fa-bars"></i>&nbsp; <a href="dashboard.php"><span>dashboard</span></a></li>
             <li><i class="fa-solid fa-home"></i>&nbsp; <a href="dash_propriete.php"><span>ma propriete</span></a></li>
             <li><i class="fa-solid fa-user"></i>&nbsp; <a href="dash_locataire.php"><span>mes locataires</span></a></li>
-            <li><i class="fa-solid fa-chart-simple"></i>&nbsp; <span>statistique</span></li>
-            <li><i class="fa-solid fa-calendar"></i>&nbsp; <span>bilan mensuel</span></li>
-            <li><i class="fa-solid fa-money-bill"></i>&nbsp; <span>total recette</span></li>
+            <li><i class="fa-solid fa-chart-simple"></i>&nbsp; <a href=""><span>statistique</span></a></li>
+            <li><i class="fa-solid fa-calendar"></i>&nbsp; <a href=""><span>bilan mensuel</span></a></li>
+            <li><i class="fa-solid fa-money-bill"></i>&nbsp; <a href=""><span>total recette</span></a></li>
             <li><i class="fa-solid fa-circle-xmark"></i>&nbsp; <a href="../php/deconexion.php"><span>quitter</span></a></li>
         </ul>
     </div>
     <div class="container">
-        <?php 
-        include('../php/connexion.php');
-        if(isset($_SESSION['nom'])){
-            // echo'acun';
-         echo   $name=$_SESSION['nom'];
-        }else{
-            $name=null;
-        }
-        ?>
+    <?php
+                    include('../php/connexion.php');
+                    if(isset($_SESSION['nom'])){
+                        // echo'acun';
+                         $user=$_SESSION['nom'];
+                         var_dump($user);
+                    }else{
+                        echo "non definit";
+                        $user= "invite";
+                    }
+
+                    ?>
         <div class="header">
             <div class="nav">
                 <div class="seach">
-                    <input type="text" name="" id="search" placeholder="recherche.." onkeyup="filterTable()">
-                    <button onclick="filterTable()" type="submit" value=""><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <input type="text" name="seach" id="search" placeholder="recherche..">
+                    <button type="submit" value=""><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
                 <div class="user">
                     <a href="#" class="btn">add new</a>
                     <i class="fa-regular fa-bell"></i>
                 </div>
                 <div class="case">
-                    <a href=""><i class="fa-solid fa-user"><?php echo $name ?></i></a>
+                    <a href="" class="b"><i class="fa-solid fa-user"></i><?php echo htmlspecialchars($user); ?></a>
+                    <a href=""></a>
                 </div>
             </div>
         </div> 
@@ -323,5 +327,6 @@
             </div>
         </div>
     </div>
+    <script src="../javascript/filtre.js"></script>
 </body>
 </html>

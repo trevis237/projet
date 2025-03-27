@@ -15,9 +15,9 @@ if (!empty($mail) && !empty($password)) {
     if ($requete->rowCount() > 0) {
         $result = $requete->fetch(PDO::FETCH_ASSOC);
         $statut = $result['statut'];
-    $id = $result['id_user'];
-    $_SESSION['nom']=$mail;
-    $_SESSION['id']=$id;
+        $id = $result['id_user'];
+        $_SESSION['nom']=$mail;
+        $_SESSION['id']=$id;
 
     //if($result){
         // session_start();
