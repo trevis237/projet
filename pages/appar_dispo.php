@@ -117,7 +117,10 @@
         // echo $total;
         if(!empty($idArray)){
             $placeholders = str_repeat('?,', count($idArray) -1) . '?';
-        $requetes = $bdd->prepare("SELECT * FROM logement WHERE Id_logement IN ($placeholders) ORDER BY prix ASC");
+        $requetes = $bdd->prepare("SELECT * FROM logement l WHERE Id_logement  IN ($placeholders)
+        AND NOT EXISTS (SELECT 1 FROM reservation r 
+        WHERE r.Id_logement = l.Id_logement AND r.date_sortie >= NOW())
+        ORDER BY prix ASC");
 
 
         $requetes->execute($idArray);

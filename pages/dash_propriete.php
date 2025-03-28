@@ -43,7 +43,7 @@
         <div class="header">
             <div class="nav">
                 <div class="seach">
-                    <input type="text" name="seach" id="search" placeholder="recherche..">
+                    <input type="text" name="seach" id="search" placeholder="recherche.." oninput="filterTable()">
                     <button type="submit" value=""><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
                 <div class="user">
@@ -103,10 +103,13 @@
                     $som->execute(["user"=>$user]);
                     $sommes=$som->fetchColumn();
                     
-
-                    ?>     
-                            <h1><?php echo $sommes ?> XAF</h1>
-                            <h3>revenu</h3>
+                    if($sommes < 1){?>
+                         
+                        <h1><?php echo $sommes=0 ?> XAF</h1>
+                        <?php }else{?>
+                        <h1><?php echo $sommes ?> XAF</h1>
+                        <?php }?>
+                        <h3>revenu</h3>
                         </div>
                             
                         <div class="icon-case">
@@ -202,7 +205,7 @@
                 }
                     
 ?>
-                    <table>
+                    <table id="tenantTable">
                         <tr>
                             <th>nom</th>
                             <th>adresse</th>

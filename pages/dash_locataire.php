@@ -103,9 +103,12 @@
                     $som->execute(["user"=>$user]);
                     $sommes=$som->fetchColumn();
                     
-
-                    ?>     
+                            if($sommes < 1){?>
+                         
+                            <h1><?php echo $sommes=0 ?> XAF</h1>
+                            <?php }else{?>
                             <h1><?php echo $sommes ?> XAF</h1>
+                            <?php }?>
                             <h3>revenu</h3>
                         </div>
                             
