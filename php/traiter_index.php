@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 include("connexion.php");
 // include "idLocataire.php";
 
@@ -30,58 +30,32 @@ if($localisation) {
       // $prix = array_column($logement, 'prix');
 
         // Stocker les informations dans la session pour la redirection
-        $_SESSION['logements'] = $logements;
-        $_SESSION['nb_jours'] = $nb_jours;
-        $_SESSION['debut'] = $debut;
-        $_SESSION['fin'] = $fin;
+        // $_SESSION['logements'] = $logements;
+        // $_SESSION['nb_jours'] = $nb_jours;
+        // $_SESSION['debut'] = $debut;
+        // $_SESSION['fin'] = $fin;
 
-       // Calculer le coût total
-      // $total = 0;
-     //  foreach ($prix as $p) {
-       //    $total += (int)$p * $nb_jours;
-      // }
-     //  $_SESSION['total'] = $total;
+        //creation de la cle secrete
+        $secretKey = "ma cle";
 
-       // Insertion dans la table reservation
-      // $req = $bdd->prepare("INSERT INTO reservation(date_debut, date_sortie, cout, Id_logement, id_user) VALUES(:d_start, :d_end, :prix, :id_logement, :id)");
+        //fonction pour creer une signature
+        function createSignature($data,$secretKey) {
+          return hash_hmac('sha256', $data, $secretKey);
+        }
 
-       // Insérer chaque logement avec le coût total
-     //  foreach ($ids as $id_logement) {
-     //      $req->execute([
-      //         "d_start" => $debut,
-       //        "d_end" => $fin,
-         //      "prix" => $total,
-           //    "id_logement" => $id_logement,
-             //  "id" => $user
-          // ]);
-       //}
+        //creation de la chaine de donnees a signer
+        $data = http_build_query(['ids'=>implode(',', $ids),'nbjours'=>$nb_jours, 'debut'=>$debut, 'fin'=>$fin]);
+        $signature = createSignature($data, $secretKey);
+
+        //url avec parametre signes
+        $url = "../pages/appar_dispo.php?$data&$signature=$signature";
 
        // Redirection vers la page des logements disponibles
-       header('Location: ../pages/appar_dispo.php?id=' . implode(',', $ids) . '&nbjours=' . $nb_jours . '&db=' . $debut . '&fin=' . $fin);
+       header("Location: $url");
        exit;
    } else {
-       echo "Pas de logement disponible pour l'adresse '$localisation'.";
-       //header("Location: ../index.php");
+       echo "Pas de logement disponible pour l'adresse $localisation.";
    }
-
-   // if(!empty($logement)){
-    //$ids=array_column($logement, 'Id_logement');
-    //$idsString=implode(',', $ids);//concatene les idetifiants en une chaine de caractere
-    //$prix=array_column($logement,'prix');
-
-   //echo $total=(int)$prix * $nb_jours;
-
-//insertion dans reservation
-//$req = $bdd->prepare("INSERT INTO reservation(date_debut, date_sortie, cout, Id_logement , id_user)
- //VALUES(:d_start, :d_end, :prix, :id_logement, :id)");
-
-//$req->execute(["d_start"=>$debut, "d_end"=>$fin, "prix"=>$total, "id_logement"=>$idsString, "id"=>$user]);
-
-//header('location:../pages/appar_dispo.php?id='.$idsString.'&nbjours='.$nb_jours.'&db='.$debut.'&fin='.$fin);
-//exit;
-//}else{
-  //  echo "pas de logement disponible pour l'adresse '$localisation'.";
-   // header("location:../index.php");
 }
-//}
+
 ?>

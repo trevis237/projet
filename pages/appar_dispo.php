@@ -94,25 +94,17 @@
 
         <?php 
         include("../php/connexion.php");
-        $user=0;
+       // $user=0;
 
-       // $localisation = '';
-       // $debut = '';
-       // $fin = '';
-        //$nb_jours = '';
-
-       // $_SESSION['logements'] = $logements;
-       // $_SESSION['nb_jours'] = $nb_jours;
-        //$_SESSION['debut'] = $debut;
-        //$_SESSION['fin'] = $fin;
-       // $_SESSION['total'] = $total;
-
-        $id=$_GET['id'];
+        $id=$_GET['ids'] ?? null;
         //convertir la chaine en tableau
       $idArray= explode(',', $id);
        $nbjours=$_GET['nbjours'];
-        $debut=$_GET['db'];
+        $debut=$_GET['debut'];
         $fin=$_GET['fin'];
+        if($id=== null || empty($id)){
+            die("manque");
+        }
 
         // echo $total;
         if(!empty($idArray)){
@@ -120,7 +112,7 @@
         $requetes = $bdd->prepare("SELECT * FROM logement l WHERE Id_logement  IN ($placeholders)
         AND NOT EXISTS (SELECT 1 FROM reservation r 
         WHERE r.Id_logement = l.Id_logement AND r.date_sortie >= NOW())
-        ORDER BY prix ASC");
+        ORDER BY prix ASC LIMIT 25");
 
 
         $requetes->execute($idArray);
@@ -135,6 +127,7 @@
 
         <div class="content">
             <?php
+            if($logements){
             foreach($logements as $logement) {
                 $id_loge = $logement['Id_logement'];
                 $proprio=$logement['id_user'];
@@ -172,7 +165,11 @@
                     <a href="<?php echo $link ?>" ><input type="submit"  class="bouton" value="reserver"></a>
                 </div>
             </div>
-        <?php }
+        <?php } ?>
+
+        <?php }else{
+            echo "Les logement correspondant a cette adresse ne sont pas disponible pour le moment.<br> Veullez changer d'adresse ou repasser plus tard.<br> Merci et a bientot";
+        }
         
         ?>
             <!-- <div class="s">
