@@ -39,7 +39,7 @@
    
                 <form action="../php/cnx.php" method="post" class="login-container" id="login">
                     <div class="top">
-                        <span>vous avez un compte? <a href="#" onclick="register()">connexion</a></span>
+                        <span>vous n'avez pas de compte? <a href="#" onclick="register()">s'inscrire</a></span>
                         <header>connexion</header>
                     </div>
                    

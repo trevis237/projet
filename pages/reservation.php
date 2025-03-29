@@ -47,14 +47,42 @@
     </header>
     <?php
     include('../php/connexion.php');
-    $total=$_GET['pu'];
-     if(isset($_GET['id_loge'])) {
-      echo  $id=$_GET['id_loge'];
-        $identifiants= $bdd->query("SELECT * FROM logement WHERE Id_logement = '$id'");
+    // Fonction pour déchiffrer une valeur
+    function decrypt($data, $key) {
+        list($encrypted_data, $iv) = explode('::', base64_decode($data), 2);
+        return openssl_decrypt($encrypted_data, 'aes-256-cbc', $key, 0, $iv);
+    }
+    
+    // Clé utilisée pour le chiffrement
+    $key = '2c6ee24b09816a6f14f95d1698b24eadc4b1e2e6d4c4f8c6a5a9e6723c3c3f5a'; // Remplacez par votre clé sécurisée
+    
+    // Vérifier si l'ID chiffré est présent dans l'URL
+    if (isset($_GET['id_loge'])) {
+        $encrypted_id_logement = $_GET['id_loge'];
+    
+        // Déchiffrer l'ID du logement
+        $id_logement = decrypt($encrypted_id_logement, $key);
+    
+        // Vérifiez si le prix est stocké dans la session
+        if (isset($_SESSION['prix'])) {
+            $prix_total = $_SESSION['prix'];
+    
+        } else {
+            echo "Aucun prix trouvé pour cette réservation.";
+        }
+    // } else {
+    //     echo "Aucun ID de logement fourni.";
+    // }
+    
+
+    // $total=$_GET['pu'];
+    //  if(isset($_GET['id_loge'])) {
+     // echo  $id=$_GET['id_loge'];
+        $identifiants= $bdd->query("SELECT * FROM logement WHERE Id_logement = '$id_logement'");
         $pdos= $identifiants->fetchAll(PDO::FETCH_ASSOC);
         // $proprietaire=$identifiants['id_user'];
        // $link="../php/annuler_reservation.php?id_loge=".$id."&pu=".$total?>
-   
+    
     <section class="corps">
         <div class="conteneur">
             <div class="cadre">
@@ -69,7 +97,7 @@
                     <p><?php echo $pdo['description'] ?></p>
                     <ul class="list">
                         <li>nature: <?php echo $pdo['nature'] ?></li>
-                        <li>prix: <?php echo $total?> XAF</</li>
+                        <li>prix: <?php echo $prix_total?> XAF</</li>
                         <li>code postal: <?php echo $pdo['code_postal'] ?></li>
                     </ul>
                 </div>

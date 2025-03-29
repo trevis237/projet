@@ -29,26 +29,8 @@ if($localisation) {
        $ids = array_column($logement, 'Id_logement');
       // $prix = array_column($logement, 'prix');
 
-        // Stocker les informations dans la session pour la redirection
-        // $_SESSION['logements'] = $logements;
-        // $_SESSION['nb_jours'] = $nb_jours;
-        // $_SESSION['debut'] = $debut;
-        // $_SESSION['fin'] = $fin;
-
-        //creation de la cle secrete
-        $secretKey = "ma cle";
-
-        //fonction pour creer une signature
-        function createSignature($data,$secretKey) {
-          return hash_hmac('sha256', $data, $secretKey);
-        }
-
-        //creation de la chaine de donnees a signer
-        $data = http_build_query(['ids'=>implode(',', $ids),'nbjours'=>$nb_jours, 'debut'=>$debut, 'fin'=>$fin]);
-        $signature = createSignature($data, $secretKey);
-
-        //url avec parametre signes
-        $url = "../pages/appar_dispo.php?$data&$signature=$signature";
+        
+        $url = '../pages/appar_dispo.php?ids='.implode(',', $ids).'&nbjours='.$nb_jours. '&debut='.$debut. '&fin='.$fin;
 
        // Redirection vers la page des logements disponibles
        header("Location: $url");

@@ -127,13 +127,47 @@
 
         <div class="content">
             <?php
-            if($logements){
-            foreach($logements as $logement) {
-                $id_loge = $logement['Id_logement'];
-                $proprio=$logement['id_user'];
-                 $prix= $logement['prix'];
-                 $total = (int)$prix * $nbjours;
-                 $link="./reservation.php?id_loge=".$id_loge."&pu=".$total;
+
+            // if($logements){
+            // foreach($logements as $logement) {
+            //     $id_loge = $logement['Id_logement'];
+            //     $proprio=$logement['id_user'];
+            //      $prix= $logement['prix'];
+            //      $total = (int)$prix * $nbjours;
+
+
+// Fonction pour chiffrer une valeur
+function encrypt($data, $key) {
+    $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
+    $encrypted = openssl_encrypt($data, 'aes-256-cbc', $key, 0, $iv);
+    return base64_encode($encrypted . '::' . $iv);
+}
+
+// Génération d'une clé sécurisée (à conserver de manière sécurisée)
+$key = '2c6ee24b09816a6f14f95d1698b24eadc4b1e2e6d4c4f8c6a5a9e6723c3c3f5a'; // À ne pas changer à chaque exécution
+
+if ($logements) {
+    foreach ($logements as $logement) {
+        $id_loge = $logement['Id_logement'];
+        // Chiffrez l'ID logement
+        $encrypted_id_logement = encrypt($id_loge, $key);
+        $proprio=$logement['id_user'];
+
+        $prix = $logement['prix'];
+        $total = (int)($prix * $nbjours);
+
+        // Stockez le prix dans la session
+        $_SESSION['prix'] = $total;
+
+        // Créez l'URL sans passer le prix
+        $link = "./reservation.php?id_loge={$encrypted_id_logement}";
+
+        // Affichez ou utilisez le lien
+       // echo $link;
+    
+
+
+                // $link="./reservation.php?id_loge=".$id_loge."&pu=".$total;
 
                 //conservavtion des detail de la table reservation
                 $_SESSION['debut'] = $debut;
