@@ -1,5 +1,5 @@
 <?php
-session_start();
+//session_start();
 
 include('connexion.php');
 
@@ -24,7 +24,7 @@ if(!empty($mail) && !empty($password) && !empty($cpassword)){
     echo "les mots de passe ne corrrespondent pas";
 }
 
-$_SESSION['email_loc']=$mail;
+//$_SESSION['email_loc']=$mail;
 }
 
 

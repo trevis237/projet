@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<?php session_start();  ?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -66,7 +67,13 @@
 
             <!-- formulaire inscription -->
 <?php
-            $mail=$_GET['email'];
+             if(isset($_SESSION['nom'])){
+
+                $mail=$_SESSION['nom'];
+             }else{
+                $mail=null;
+             }
+            //$mail=$_GET['email'];
 
 ?>
 

@@ -47,6 +47,10 @@ h1{
     display: flex;
     gap: 70px;
 }
+label{
+    color: #fff;
+    font-size: 22px;
+}
 
 .zone{
     padding:8px 180px;

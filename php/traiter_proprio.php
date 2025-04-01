@@ -1,5 +1,5 @@
 <?php
-//session_start();
+session_start();
 include("connexion.php");
 include 'envoie_mail.php';
 
@@ -32,8 +32,9 @@ if (!empty($nom) && !empty($prenom) && !empty($mail) && !empty($telephone)) {
             } else {
                 echo 'L\'email de salutation au propriétaire n\'a pas pu être envoyé.';
             }
+            var_dump( $_SESSION['nom']=$mail);
 
-            header('Location: ../pages/inscription.php?email=' . $mail);
+            header('Location: ../pages/inscription.php');
             exit();
         } else {
             echo "Erreur lors de l'insertion.";

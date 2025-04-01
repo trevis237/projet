@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<?php session_start()
+<?php session_start();
 ?>
 <html lang="en">
 <head>
@@ -33,7 +33,7 @@
                     if(isset($_SESSION['nom'])){
                         // echo'acun';
                          $user=$_SESSION['nom'];
-                         var_dump($user);
+                         $user;
                     }else{
                         echo "non definit";
                         $user= "invite";

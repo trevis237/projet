@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<?php session_start(); ?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -66,8 +67,13 @@
                 </form>
 
                 <?php 
-
-                $mail=$_GET['email'];
+                
+                if(isset($_SESSION['email_loc'])){
+                    $mail=$_SESSION['email_loc'];
+                }else{
+                    $mail=null;
+                }
+                
                 
 
                 

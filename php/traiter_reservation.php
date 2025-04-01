@@ -67,8 +67,9 @@ if(!empty($nom) && !empty($prenom) && !empty($email) && !empty($telephone)) {
             echo 'L\'email de notification n\'a pas pu etre envoye.'; //message d'erreur' pour le proprietaire
         }
 
-        header('location:../pages/inscription_locataire.php?email='.$email);
+        header('location:../pages/inscription_locataire.php');
   }
+  $_SESSION['email_loc']=$email;
 
   //recuperation de l'identifiant du locataire
   $locataire = $bdd->prepare("SELECT id_user FROM user WHERE email = :mail AND telephone = :phone");

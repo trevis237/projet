@@ -48,20 +48,44 @@
     <?php
     include('../php/connexion.php');
     // Fonction pour déchiffrer une valeur
-    function decrypt($data, $key) {
-        list($encrypted_data, $iv) = explode('::', base64_decode($data), 2);
-        return openssl_decrypt($encrypted_data, 'aes-256-cbc', $key, 0, $iv);
+    // function decrypt($data, $key) {
+    //     list($encrypted_data, $iv) = explode('::', base64_decode($data), 2);
+    //     return openssl_decrypt($encrypted_data, 'aes-256-cbc', $key, 0, $iv);
+    // }
+
+    // Fonction pour déchiffrer une valeur
+function decrypt($data, $key) {
+    $decoded_data = base64_decode($data);
+    if ($decoded_data === false) {
+        die("Erreur de décodage base64.");
     }
+
+    list($encrypted_data, $iv) = explode('::', $decoded_data, 2);
     
-    // Clé utilisée pour le chiffrement
-    $key = '2c6ee24b09816a6f14f95d1698b24eadc4b1e2e6d4c4f8c6a5a9e6723c3c3f5a'; // Remplacez par votre clé sécurisée
+    if (!$iv) {
+        die("IV manquant dans le déchiffrement.");
+    }
+
+    $decrypted = openssl_decrypt($encrypted_data, 'aes-256-cbc', $key, 0, $iv);
     
-    // Vérifier si l'ID chiffré est présent dans l'URL
-    if (isset($_GET['id_loge'])) {
-        $encrypted_id_logement = $_GET['id_loge'];
+    if ($decrypted === false) {
+        die("Erreur de déchiffrement : " . openssl_error_string());
+    }
+
+    return $decrypted;
+}
+
+// Clé utilisée pour le déchiffrement (doit être la même que pour le chiffrement)
+$key = '2c6ee24b09816a6f14f95d1698b24eadc4b1e2e6d4c4f8c6a5a9e6723c3c3f5a'; // Exemple de clé sécurisée
+
+// Vérifier si l'ID chiffré est présent dans l'URL
+if (isset($_GET['id_loge'])) {
+    $encrypted_id_logement = $_GET['id_loge'];
+
+    // Déchiffrer l'ID du logement
+    $id_logement = decrypt($encrypted_id_logement, $key);
     
-        // Déchiffrer l'ID du logement
-        $id_logement = decrypt($encrypted_id_logement, $key);
+   
     
         // Vérifiez si le prix est stocké dans la session
         if (isset($_SESSION['prix'])) {

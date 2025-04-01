@@ -33,7 +33,7 @@
                     if(isset($_SESSION['nom'])){
                         // echo'acun';
                          $user=$_SESSION['nom'];
-                         var_dump($user);
+                         $user;
                     }else{
                         echo "non definit";
                         $user= "invite";
@@ -227,7 +227,8 @@
                             <td><?php echo $locataire['prenom'] ?></td>
                             <td><?php echo $locataire['email'] ?></td>
                             <td><?php echo $locataire['telephone'] ?></td>
-                            <td><a href="#" class="btn">voir</a><?php echo $locataire['date_debut'] ?></td>
+                            <td><?php echo $locataire['date_debut'] ?></td>
+                            <!-- <td><a href="#" class="btn">voir</a><?php //echo $locataire['date_debut'] ?></td> -->
                             <td><?php echo $locataire['date_sortie'] ?></td>
                             <td><?php echo $locataire['cout'] ?></td>
                             <td><?php echo $locataire['adresse'] ?></td>

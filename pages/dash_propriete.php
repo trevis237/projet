@@ -33,7 +33,7 @@
                     if(isset($_SESSION['nom'])){
                         // echo'acun';
                          $user=$_SESSION['nom'];
-                         var_dump($user);
+                         $user;
                     }else{
                         echo "non definit";
                         $user= "invite";
