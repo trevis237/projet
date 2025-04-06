@@ -38,20 +38,22 @@ if(!empty($nom) && !empty($adresse) && !empty($surface) && !empty($prix) && !emp
     $id_proprietaire=$row['id_proprietaire'];
 
 
-    $requete = $bdd->prepare("INSERT INTO logement( nom, adresse, surface, prix, photo, description, ville, code_postal, nature, id_user)
-     VALUES (:nom,:adresse,:surface,:prix,:tof,:description,:ville,:code_postal,:nature, :id)");
+    $requete = $bdd->prepare("INSERT INTO logement( nom, adresse, surface, prix, photo, description, ville, code_postal, nature)
+     VALUES (:nom,:adresse,:surface,:prix,:tof,:description,:ville,:code_postal,:nature)");
 
-     $requete->execute(["nom"=>$nom,"adresse"=>$adresse,"surface"=>$surface,"prix"=>$prix,"tof"=>$path_photo_dbb,"description"=>$description,"ville"=>$ville,"code_postal"=>$code_postal,"nature"=>$nature, "id"=>$id_proprietaire]);
-}
-// $id_logement= $bdd->query("SELECT max(id_logement) as id_logement FROM logement");
+     $requete->execute(["nom"=>$nom,"adresse"=>$adresse,"surface"=>$surface,"prix"=>$prix,"tof"=>$path_photo_dbb,"description"=>$description,"ville"=>$ville,"code_postal"=>$code_postal,"nature"=>$nature]);
+      
+     //recuperation de l'id du logement
+$sql = $bdd->query("SELECT MAX(Id_logement) as id_loge FROM logement");
+$id_logement = $sql->fetch(PDO::FETCH_ASSOC);
+echo $id_loge = $id_logement['id_loge'];
 
-// $id=$id_logement->fetch(PDO::FETCH_ASSOC);
-// if(!empty($id_logement)){
-//  session_start();
-//  $_SESSION['id_logement']=$id['id_logement'];
-// $logement = $requete->fetch();
-// $id=$logement['Id_logement'];
+//mise a jours de la table utilisateur avec id_logement
+$user = $bdd->prepare("UPDATE user SET Id_logement = :id WHERE id_user = :usr");
+$loge = $user->execute(["id"=>$id_loge, "usr"=>$id_proprietaire]);
 
 header('location:../pages/dashboard.php');
+     
+}
 
 ?>

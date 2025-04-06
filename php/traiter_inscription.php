@@ -29,8 +29,8 @@ if(!empty($mail) && !empty($password) && !empty($cpassword)){
  // var_dump(  $_SESSION['nom']=$mail);
     if($id){
 
-      $_SESSION['id']=$id['id_user'];
-      header('location:../pages/ajoueter_logement.php');
+    echo  $_SESSION['id']=$id['id_user'];
+     // header('location:../pages/ajoueter_logement.php');
     }
    
         

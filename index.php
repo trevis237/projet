@@ -50,6 +50,7 @@
         </div>
     </header>
 
+    <section class="banner">
     <div class="transi">
         <marquee behavior="" direction=""><h1>bienvenu chez vous</h1></marquee>
     </div>
@@ -72,6 +73,96 @@
             </div>
         </div>
     </form>
+
+    </section>
+    
+
+    <?php
+
+    include("php/connexion.php");
+
+
+
+$stmt = $bdd->prepare("    SELECT * 
+    FROM logement
+    WHERE Id_logement NOT IN (
+        SELECT Id_logement 
+        FROM reservation
+        WHERE date_sortie >= NOW()
+    )
+");
+$stmt->execute([]);
+
+// Récupération des résultats
+$appartements = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+if ($appartements)
+    ?>
+   
+<section class="featured">
+    <?php if ($appartements) {
+            foreach ($appartements as $logement) { 
+                $id_loge = $logement['Id_logement'];
+                // $proprio=$logement['id_user'];
+        
+                $prix = $logement['prix'];
+
+                $_SESSION['house']=$id_loge;
+                // $total = (int)($prix * $nbjours);?>
+    <div class="property">
+        
+                    
+        <img class="tof" src="<?php echo $logement["photo"]; ?>" alt="Logement 1" />
+        <h3><?php echo $logement["nom"] ?></h3>
+        <span><?php echo $logement["ville"]?></span>
+        <span><?php echo $logement["adresse"]. "  " .$logement["code_postal"]; ?></span>
+        
+        <p><?php echo $logement["surface"] ?>m2</p>
+        <span><?php echo  $logement["prix"] ?> XAF/J</span>
+        <p>Type:<?php echo "  " .$logement["nature"] ?><br></p>
+        <p><?php echo $logement["description"] ?></p>
+        <a href="pages/reservation_visit.php?ad=<?php echo $id_loge ?>"><button >Reserver</button></a>
+    </div>
+    <?php } ?>
+    <?php } ?>
+
+    <script>
+    function redirectToPage() {
+        // Lien de redirection
+        window.location.href = "pages/reservation_visit.php"; // Remplacez par l'URL de votre page
+    }
+</script>
+    <!-- <div class="property">
+        <img src="asset/cdcca441.jpg" alt="Logement 2" />
+        <h3>Logement 2</h3>
+        <p>Appartement moderne en centre-ville, proche de toutes commodités.</p>
+        <button>Reserver</button>
+    </div>
+    <div class="property">
+        <img src="asset/premium_photo-1676321046262-4978a752fb15.jpeg" alt="Logement 3" />
+        <h3>Logement 3</h3>
+        <p>Chalet confortable à la montagne, parfait pour l'hiver.</p>
+        <button>Reserver</button>
+    </div>
+    <div class="property">
+        <img src="asset/cdcca441.jpg" alt="Logement 2" />
+        <h3>Logement 2</h3>
+        <p>Appartement moderne en centre-ville, proche de toutes commodités.</p>
+        <button>Reserver</button>
+    </div>
+    <div class="property">
+        <img src="asset/cdcca441.jpg" alt="Logement 2" />
+        <h3>Logement 2</h3>
+        <p>Appartement moderne en centre-ville, proche de toutes commodités.</p>
+        <button>Reserver</button>
+    </div>
+    <div class="property">
+        <img src="asset/cdcca441.jpg" alt="Logement 2" />
+        <h3>Logement 2</h3>
+        <p>Appartement moderne en centre-ville, proche de toutes commodités.</p>
+        <button>Reserver</button>
+    </div> -->
+</section>
 
     <script src="./javascript/select_date.js"></script>
     <script src="./javascript/garder_cinput.js"></script>

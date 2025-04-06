@@ -104,15 +104,28 @@ if (isset($_GET['id_loge'])) {
      // echo  $id=$_GET['id_loge'];
         $identifiants= $bdd->query("SELECT * FROM logement WHERE Id_logement = '$id_logement'");
         $pdos= $identifiants->fetchAll(PDO::FETCH_ASSOC);
-        // $proprietaire=$identifiants['id_user'];
-       // $link="../php/annuler_reservation.php?id_loge=".$id."&pu=".$total?>
+        
+$req = $bdd->query("SELECT id_user 
+FROM user 
+WHERE Id_logement = $id_logement");
+// $req->execute(["ad"=>$lodgingId]);
+$id = $req->fetch(PDO::FETCH_ASSOC);
+// echo $result=$req['id_user'];
+if ($id) {
+    // Accédez à l'identifiant de l'utilisateur
+   echo $result = $id['id_user'];
+} else {
+    // Gestion de l'absence de résultats
+    echo "Aucun utilisateur trouvé pour ce logement.";
+}
+$_SESSION['proprietaire']=$result;?>
     
     <section class="corps">
         <div class="conteneur">
             <div class="cadre">
             <?php 
             foreach ($pdos as $pdo ) { 
-                $_SESSION['proprietaire']=$pdo['id_user'];?>
+            //  echo   $_SESSION['proprietaire']=$pdo['id_user'];?>
                 <div class="entete">
                     <img class="image" src="<?php echo $pdo['photo'] ?>" alt="">
                 </div>

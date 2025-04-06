@@ -5,7 +5,7 @@
     font-family: "Poppins", serif;
 }
 body{
-    background-image: url(../asset/cdcca441.jpg);
+    /* background-image: url(../asset/cdcca441.jpg); */
     background-size: cover;
     background-position: center;
     animation-name: arriere;
@@ -19,6 +19,16 @@ img{
     height: 20px;
     width: 20px;
 } */
+ .banner{
+    background-image: url(../asset/cdcca441.jpg);
+    background-size: cover;
+    height: 400px;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            position: relative;
+}
 .container{
     margin-top: 120px;
     height: 100px;
@@ -233,6 +243,51 @@ header{
         width: unset;
     }
 
+}
+
+.featured {
+    background-color: #f5f5dc;
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+.property {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 30%;
+    margin: 15px 0;
+    text-align: center;
+}
+.property img {
+    cursor: pointer;
+    width: 100%;
+    height: 50%;
+    border-radius: 5px;
+}
+.property button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #3498db; /* Couleur bleue pour le bouton Détails */
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+.property button:hover {
+    background-color: #2980b9; /* Couleur plus foncée au survol */
+    transform: translateY(-2px); /* Légère élévation */
+}
+footer {
+    background: #34495e;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
 }
 
 

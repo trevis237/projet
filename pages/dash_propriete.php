@@ -69,7 +69,7 @@
                     }
                     $nbres=$bdd->prepare("SELECT COUNT(u.id_user) 
                     FROM user u, reservation r, logement l
-                     WHERE  u.id_user=r.id_user AND l.Id_logement=r.Id_logement AND l.id_user= :user AND u.statut='0'");
+                     WHERE  u.id_user=r.id_user AND l.Id_logement=r.Id_logement AND u.id_user= :user AND u.statut='0'");
 
                     $nbres->execute(["user"=>$user]);
                     $total=$nbres->fetchColumn();
@@ -98,7 +98,7 @@
                     }
                     $som=$bdd->prepare("SELECT SUM(r.cout) 
                     FROM user u, reservation r, logement l
-                     WHERE  u.id_user=r.id_user AND l.Id_logement=r.Id_logement AND l.id_user= :user AND u.statut='0'");
+                     WHERE  u.id_user=r.id_user AND l.Id_logement=r.Id_logement AND u.id_user= :user AND u.statut='0'");
 
                     $som->execute(["user"=>$user]);
                     $sommes=$som->fetchColumn();
@@ -127,8 +127,8 @@
                         $user=null;
                     }
                     $biens=$bdd->prepare("SELECT COUNT(*) as total_non_occupe
-                    FROM logement l
-                     WHERE l.id_user= :user");
+                    FROM user
+                     WHERE id_user= :user");
                     $biens->execute(["user"=>$user]);
                     $all=$biens->fetchColumn();
                     
@@ -152,13 +152,17 @@
                     }else{
                         $user=null;
                     }
-                    $loge=$bdd->prepare("SELECT COUNT(*) as total_non_occupe
-                    FROM logement l, reservation r
-                     WHERE l.id_user =:user AND r.id_reservation is null");
+                    $loge=$bdd->prepare(" SELECT COUNT(*) AS nombre_appartements_libres 
+                    FROM logement l 
+                    LEFT JOIN reservation r ON l.Id_logement = r.Id_logement 
+                    LEFT JOIN user u ON l.Id_logement = u.Id_logement 
+                    WHERE u.id_user = :user
+                    AND (r.date_sortie < NOW() OR r.id_reservation IS NULL)
+                ");
 
                     $loge->execute(["user"=>$user]);
                     $maison=$loge->fetch(PDO::FETCH_ASSOC);
-                    $total_vide = $maison['total_non_occupe'];
+                    $total_vide = $maison['nombre_appartements_libres'];
                     
 
                     ?>
@@ -176,7 +180,7 @@
                 <div class="recent-payments">
                     <div class="title">
                         <h2>mes proprietes</h2>
-                        <a href="#" class="btn">view all</a>
+                        <a href="ajoueter_logement.php" class="btn">view all</a>
                     </div>
 
                     <?php
@@ -189,11 +193,15 @@
                         $user=null;
                     }
                     $home= $bdd->prepare("SELECT l.*, 
-                    CASE  
-                    WHEN COUNT(r.id_reservation) > 0 AND MAX(r.date_sortie) >= NOW() THEN 'occupe'
-                    ELSE 'libre' END AS statut FROM logement l LEFT JOIN reservation r 
-                    ON l.Id_logement = r.Id_logement WHERE l.id_user = :user
-                    GROUP BY l.Id_logement");
+    CASE  
+        WHEN COUNT(r.id_reservation) > 0 AND MAX(r.date_sortie) >= NOW() THEN 'occupe'
+        ELSE 'libre' 
+    END AS statut 
+    FROM logement l 
+    LEFT JOIN reservation r ON l.Id_logement = r.Id_logement 
+    LEFT JOIN user u ON l.Id_logement = u.Id_logement 
+    WHERE u.id_user = :user
+    GROUP BY l.Id_logement");
 
                     $home->execute(["user"=>$user]);
 

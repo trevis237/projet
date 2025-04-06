@@ -69,7 +69,7 @@
                     }
                     $nbres=$bdd->prepare("SELECT COUNT(u.id_user) 
                     FROM user u, reservation r, logement l
-                     WHERE  u.id_user=r.id_user AND l.Id_logement=r.Id_logement AND l.id_user= :user AND u.statut='0'");
+                     WHERE  u.id_user=r.id_user AND l.Id_logement=r.Id_logement AND u.id_user= :user AND u.statut='0'");
 
                     $nbres->execute(["user"=>$user]);
                     $total=$nbres->fetchColumn();
@@ -98,7 +98,7 @@
                     }
                     $som=$bdd->prepare("SELECT SUM(r.cout) 
                     FROM user u, reservation r, logement l
-                     WHERE  u.id_user=r.id_user AND l.Id_logement=r.Id_logement AND l.id_user= :user AND u.statut='0'");
+                     WHERE  u.id_user=r.id_user AND l.Id_logement=r.Id_logement AND u.id_user= :user AND u.statut='0'");
 
                     $som->execute(["user"=>$user]);
                     $sommes=$som->fetchColumn();
@@ -127,8 +127,8 @@
                         $user=null;
                     }
                     $biens=$bdd->prepare("SELECT COUNT(*) as total_non_occupe
-                    FROM logement l
-                     WHERE l.id_user= :user");
+                    FROM user
+                     WHERE id_user= :user");
                     $biens->execute(["user"=>$user]);
                     $all=$biens->fetchColumn();
                     
@@ -152,13 +152,17 @@
                     }else{
                         $user=null;
                     }
-                    $loge=$bdd->prepare("SELECT COUNT(*) as total_non_occupe
-                    FROM logement l, reservation r
-                     WHERE l.id_user =:user AND r.id_reservation is null");
+                    $loge=$bdd->prepare(" SELECT COUNT(*) AS nombre_appartements_libres 
+                    FROM logement l 
+                    LEFT JOIN reservation r ON l.Id_logement = r.Id_logement 
+                    LEFT JOIN user u ON l.Id_logement = u.Id_logement 
+                    WHERE u.id_user = :user
+                    AND (r.date_sortie < NOW() OR r.id_reservation IS NULL)
+                ");
 
                     $loge->execute(["user"=>$user]);
                     $maison=$loge->fetch(PDO::FETCH_ASSOC);
-                    $total_vide = $maison['total_non_occupe'];
+                    $total_vide = $maison['nombre_appartements_libres'];
                     
 
                     ?>
@@ -188,18 +192,17 @@
                     }else{
                         $user=null;
                     }
-                    $reservation= $bdd->prepare("SELECT u.nom, u.prenom, u.email, u.telephone, r.date_debut, r.date_sortie, r.cout, l.adresse,
+                    $reservation= $bdd->prepare(" SELECT u.nom, u.prenom, u.email, u.telephone, r.date_debut, r.date_sortie, r.cout, l.adresse,
                     CASE 
-                    WHEN r.Id_logement IS null AND h.id_reservation IS null
-                    THEN 'libre'
-                    WHEN r.date_sortie <= NOW() THEN 'libre'
-                    ELSE 'occupe'
+                        WHEN r.date_sortie < NOW() THEN 'libre'  -- Si la date de sortie est passée
+                        WHEN r.date_sortie >= NOW() THEN 'occupe'  -- Si l'appartement est encore réservé
+                        ELSE 'libre'  -- Pour les appartements sans réservation
                     END AS etat
-                     FROM logement l
-                      LEFT JOIN reservation r ON l.Id_logement=r.Id_logement
-                      LEFT JOIN user u ON u.id_user=u.id_user
-                     LEFT JOIN historique_reservation h ON r.id_reservation=h.id_reservation
-                     WHERE  u.id_user=r.id_user AND l.id_user= :user AND u.statut='0'");
+                    FROM logement l
+                    LEFT JOIN reservation r ON l.Id_logement = r.Id_logement
+                    LEFT JOIN user u ON r.id_user = u.id_user
+                    WHERE u.id_user = :user AND u.statut = '0'
+                ");
 
                     $reservation->execute(["user"=>$user]);
 

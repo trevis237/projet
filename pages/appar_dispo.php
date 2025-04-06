@@ -151,7 +151,7 @@ if ($logements) {
         $id_loge = $logement['Id_logement'];
         // Chiffrez l'ID logement
         $encrypted_id_logement = encrypt($id_loge, $key);
-        $proprio=$logement['id_user'];
+        // $proprio=$logement['id_user'];
 
         $prix = $logement['prix'];
         $total = (int)($prix * $nbjours);
@@ -175,7 +175,7 @@ if ($logements) {
                 $_SESSION['total'] = $total;
                 $_SESSION['logements'] = $id_loge;
                  
-               $_SESSION['proprietaire']=$proprio; ?>
+              // $_SESSION['proprietaire']=$proprio; ?>
                  
 
 
