@@ -1,7 +1,11 @@
 <?php
+session_start();
 include("connexion.php");
 $debut=$_POST['checkin'];
 $fin=$_POST['checkout'];
+
+$_SESSION['debut']= $debut;
+$_SESSION['fin']=$fin;
 
 $date1 = strtotime($debut);
 $date2 = strtotime($fin);

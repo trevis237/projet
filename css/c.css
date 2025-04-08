@@ -1,0 +1,508 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    color: #fff;
+    background-color: #000;
+}
+
+.container {
+    position: absolute;
+    right: 0;
+    width: calc(100% - 300px);
+    height: 100vh;
+    background: #000;
+}
+
+.container .header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: calc(100% - 300px);
+    height: 80px;
+    background-color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 40px;
+    z-index: 1000;
+}
+
+.container .header .nav {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.container .header .nav .seach {
+    flex: 3;
+    position: relative;
+    margin-left: 10px;
+}
+
+.container .header .nav .seach input {
+    width: 100%;
+    height: 50px;
+    border-radius: 25px;
+    padding: 0 25px;
+    outline: none;
+    border: none;
+    background-color: #f5f5f5;
+    color: #000;
+}
+
+.container .header .nav .seach button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    height: 30px;
+    border-radius: 15px;
+    outline: none;
+    border: none;
+    padding: 0 15px;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.container .header .nav .seach button i {
+    color: #111;
+}
+
+.container .header .nav .user {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container .header .nav .user i {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.container .header .nav .case {
+    position: relative;
+    width: 80px;
+    height: 50px;
+    margin-left: 20px;
+}
+
+.container .header .nav .case a {
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.container .header .nav .case i {
+    font-size: 20px;
+}
+
+.container .content {
+    position: relative;
+    min-height: calc(100vh - 80px);
+    margin-top: 80px;
+    padding: 20px 40px;
+}
+
+.container .content .cards {
+    padding: 20px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.container .content .cards .card {
+    width: 250px;
+    height: 180px;
+    background: #1e1e1e;
+    margin: 20px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+}
+
+.container .content .cards .card .box h1 {
+    color: #3783cd;
+    font-weight: 700;
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.container .content .cards .card .box h3 {
+    color: #fff;
+    font-size: 17px;
+    font-weight: 400;
+}
+
+.container .content .cards .card .icon-case {
+    font-size: 35px;
+    color: #3783cd;
+}
+
+.container .content .content-2 {
+    min-height: 70vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.container .content .content-2 .recent-payments {
+    width: 100%;
+    background: #1e1e1e;
+    padding: 20px 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+}
+
+.container .content .content-2 .title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #999;
+    padding-bottom: 15px;
+}
+
+.container .content .content-2 .title h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.container .content .content-2 .title a {
+    padding: 5px 10px;
+    background-color: #3783cd;
+    color: #fff;
+    font-weight: 500;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.container .content .content-2 .recent-payments table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.container .content .content-2 .recent-payments table tr {
+    border-bottom: 1px solid #444;
+}
+
+.container .content .content-2 .recent-payments table tr:last-child {
+    border-bottom: none;
+}
+
+.container .content .content-2 .recent-payments table tr th,
+.container .content .content-2 .recent-payments table tr td {
+    padding: 10px;
+    text-align: center;
+}
+
+.container .content .content-2 .recent-payments table tr th {
+    font-size: 16px;
+    font-weight: 600;
+    color: #3783cd;
+}
+
+.container .content .content-2 .recent-payments table tr td {
+    font-size: 14px;
+    color: #fff;
+}
+
+.side-menu {
+    position: fixed;
+    background: #111;
+    width: 300px;
+    height: 100%;
+    top: 0;
+    left: 0;
+    font-size: 16px;
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+
+.side-menu .brand-name {
+    height: 80px;
+    padding: 0 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000;
+}
+
+.side-menu .brand-name h1 {
+    font-size: 34px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.side-menu li {
+    font-size: 24px;
+    padding: 14px 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.side-menu li:hover {
+    background-color: #222;
+    padding-left: 25px;
+}
+
+.side-menu li a {
+    text-decoration: none;
+    color: #eee;
+    font-weight: 500;
+    margin-left: 10px;
+    width: 100%;
+}
+
+.side-menu li i {
+    color: #3783cd;
+    width: 30px;
+    text-align: center;
+}
+
+.side-menu li.active {
+    background-color: #3783cd;
+}
+
+.side-menu li.active i,
+.side-menu li.active a {
+    color: #fff;
+}
+
+.container .content .content-2 .title a.btn,
+.container .header .nav .user a.btn,
+.container .content .content-2 .recent-payments table tr td a.btn {
+    padding: 5px 10px;
+    background-color: #3783cd;
+    color: #fff;
+    font-weight: 500;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.container .content .content-2 .title a.btn:hover,
+.container .header .nav .user a.btn:hover,
+.container .content .content-2 .recent-payments table tr td a.btn:hover {
+    background-color: #2a6dae;
+}
+
+/* Boutons d'action */
+.container .content .content-2 .recent-payments table tr td.actions {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.btn-edit {
+    background-color: #ffc107 !important;
+}
+
+.btn-delete {
+    background-color: #dc3545 !important;
+}
+
+.btn-primary {
+    background-color: #3783cd !important;
+}
+
+.btn-secondary {
+    background-color: #6c757d !important;
+}
+
+/* Notifications */
+.notification {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.notification.success {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.notification.error {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+/* Formulaires */
+.form-content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 800px;
+    background: #1e1e1e;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #fff;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #444;
+    background-color: #333;
+    color: #fff;
+    font-size: 14px;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #3783cd;
+}
+
+.form-actions {
+    grid-column: span 2;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.error-message {
+    background-color: rgba(220, 53, 69, 0.2);
+    border-left: 4px solid #dc3545;
+    padding: 15px;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.error-message ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+/* État vide */
+.empty-state {
+    text-align: center;
+    padding: 50px 0;
+}
+
+.empty-state .empty-icon {
+    font-size: 60px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.empty-state p {
+    font-size: 18px;
+    color: #999;
+    margin-bottom: 20px;
+}
+
+/* Responsive */
+@media screen and (max-width: 1050px) {
+    .side-menu {
+        width: 250px;
+    }
+    
+    .container {
+        width: calc(100% - 250px);
+    }
+    
+    .container .header {
+        width: calc(100% - 250px);
+    }
+}
+
+@media screen and (max-width: 940px) {
+    .side-menu {
+        width: 70px;
+    }
+    
+    .side-menu .brand-name h1 {
+        font-size: 20px;
+    }
+    
+    .side-menu li span {
+        display: none;
+    }
+    
+    .container {
+        width: calc(100% - 70px);
+    }
+    
+    .container .header {
+        width: calc(100% - 70px);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .container .content .cards {
+        justify-content: center;
+    }
+    
+    .container .content .content-2 .recent-payments {
+        overflow-x: auto;
+    }
+    
+    .form {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-actions {
+        grid-column: 1;
+    }
+}
+
+@media screen and (max-width: 536px) {
+    .container .content .cards .card {
+        width: 100%;
+    }
+    
+    .container .content .content-2 .recent-payments table {
+        min-width: 600px;
+    }
+}

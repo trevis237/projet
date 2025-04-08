@@ -30,7 +30,7 @@ if(!empty($mail) && !empty($password) && !empty($cpassword)){
     if($id){
 
     echo  $_SESSION['id']=$id['id_user'];
-     // header('location:../pages/ajoueter_logement.php');
+     header('location:../pages/ajoueter_logement.php');
     }
    
         

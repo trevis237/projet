@@ -84,6 +84,8 @@ if (isset($_GET['id_loge'])) {
 
     // Déchiffrer l'ID du logement
     $id_logement = decrypt($encrypted_id_logement, $key);
+
+    $id_logement=$_SESSION['house'];
     
    
     

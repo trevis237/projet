@@ -72,7 +72,7 @@ if ($id) {
 echo $_SESSION['proprietaire']=$result ;
 
     // Stocke l'identifiant dans la session
-   $_SESSION['house'] = $lodgingId;?>
+    $_SESSION['logements'] = $lodgingId;?>
 <div class="form-container">
     <h2>Formulaire de Réservation</h2>
     <form id="reservationForm" action="../php/visit.php" method="post">

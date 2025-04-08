@@ -35,14 +35,15 @@ if (!empty($mail) && !empty($password)) {
                    }else{
                        $user=null;
                    }
-                header('Location: ../pages/dashboard.php');
+                   header('Location: ../pages/dashboard.php');
+                // header('Location: ../pages/dashboard.php');
             } else {
                 if(isset($_SESSION['locataire'])){
                     $user=$_SESSION['locataire'];
                    }else{
                        $user=null;
                    }
-                header('Location: ../pages/index2.php');
+                header('Location: ../pages/carref.php');
             }
             exit;
         } else {

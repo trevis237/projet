@@ -48,8 +48,8 @@
     <?php
     include('../php/connexion.php');
 
-    if(isset($_SESSION['house']) && isset($_GET['nb_jours'])){
-        $id_logement=$_SESSION['house'];
+    if(isset($_SESSION['logements']) && isset($_GET['nb_jours'])){
+        $id_logement=$_SESSION['logements'];
         $nb_jours=$_GET['nb_jours'];
     }else{
         echo "identifiant inconnu";
@@ -65,6 +65,8 @@
             <div class="cadre">
             <?php 
             foreach ($pdos as $pdo ) { 
+                $total= $pdo['prix']*$nb_jours;
+                $_SESSION['total']=$total;
                 //$_SESSION['proprietaire']=$pdo['id_user'];?>
                 <div class="entete">
                     <img class="image" src="<?php echo $pdo['photo'] ?>" alt="">
@@ -74,7 +76,7 @@
                     <p><?php echo $pdo['description'] ?></p>
                     <ul class="list">
                         <li>nature: <?php echo $pdo['nature'] ?></li>
-                        <li>prix: <?php echo $pdo['prix']*$nb_jours ?> XAF</</li>
+                        <li>prix: <?php echo $total ?> XAF</li>
                         <li>code postal: <?php echo $pdo['code_postal'] ?></li>
                     </ul>
                 </div>

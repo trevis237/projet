@@ -67,27 +67,38 @@ if(!empty($nom) && !empty($prenom) && !empty($email) && !empty($telephone)) {
             echo 'L\'email de notification n\'a pas pu etre envoye.'; //message d'erreur' pour le proprietaire
         }
 
-        header('location:../pages/inscription_locataire.php');
-  }
+    
   $_SESSION['email_loc']=$email;
 
   //recuperation de l'identifiant du locataire
   $locataire = $bdd->prepare("SELECT id_user FROM user WHERE email = :mail AND telephone = :phone");
   $locataire->execute(["mail"=>$email, "phone"=>$telephone]);
   $id_loc = $locataire->fetch();
-  echo $user = $id_loc['id_user'];
+   $user = $id_loc['id_user'];
+
+  echo $_SESSION['id']=$user;
+
+  //historique
+  $historique = $bdd->prepare("INSERT INTO historique_reservation(date, action) VALUES (:date, :action)");
+
+                    $historique->execute(["date"=>$date, "action"=>$action]);
+
+                //recuperer l'id de l'historique
+                    $request=$bdd->query("SELECT MAX(id_historique) as histo FROM historique_reservation");
+                    $result=$request->fetch(PDO::FETCH_ASSOC);
+                    $hist=$result['histo'];
 
     //isertion dans le table reservation
     if(isset($_SESSION['debut']) && isset($_SESSION['fin']) && isset($_SESSION['total']) && isset($_SESSION['logements'])){
         $debut = $_SESSION['debut'] ;
         $fin = $_SESSION['fin'];
         $total = $_SESSION['total'];
-        $id_loge = $_SESSION['logements'];  
+      echo  $id_loge = $_SESSION['logements'];  
     }
    
 
                // Insertion dans la table reservation
-               $req = $bdd->prepare("INSERT INTO reservation(date_debut, date_sortie, cout, Id_logement, id_user) VALUES(:d_start, :d_end, :prix, :id_logement, :id)");
+               $req = $bdd->prepare("INSERT INTO reservation(date_debut, date_sortie, cout, Id_logement, id_user,id_historique) VALUES(:d_start, :d_end, :prix, :id_logement, :id, :his)");
 
                // Insérer chaque logement avec le coût total
                    $req->execute([
@@ -95,18 +106,19 @@ if(!empty($nom) && !empty($prenom) && !empty($email) && !empty($telephone)) {
                        "d_end" => $fin,
                        "prix" => $total,
                        "id_logement" => $id_loge,
-                       "id" => $user
+                       "id" => $user,
+                       "his"=> $hist
                    ]);
 
-                   $request=$bdd->query("SELECT MAX(id_reservation) as reser FROM reservation");
-                    $result=$request->fetch(PDO::FETCH_ASSOC);
-                    $reser=$result['reser'];
+                  
 
-                    $historique = $bdd->prepare("INSERT INTO historique_reservation(date, action, id_reservation) VALUES (:date, :action, :id)");
+                    // $historique = $bdd->prepare("INSERT INTO historique_reservation(date, action, id_reservation) VALUES (:date, :action, :id)");
 
-                    $historique->execute(["date"=>$date, "action"=>$action, "id"=>$reser]);
+                    // $historique->execute(["date"=>$date, "action"=>$action, "id"=>$reser]);
 
 
+}
+header('location:../pages/inscription_locataire.php');
 }
   
 ?>

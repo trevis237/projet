@@ -19,7 +19,7 @@ if(!empty($mail) && !empty($password) && !empty($cpassword)){
 
     $requetes->execute(["password"=>$hashpassword, "cpassword" =>$hashpassword, "mail"=>$mail]);
 
-        header('location:../pages/index2.php');
+        header('location:../pages/carref.php');
 }else{
     echo "les mots de passe ne corrrespondent pas";
 }

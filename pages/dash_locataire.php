@@ -192,23 +192,29 @@
                     }else{
                         $user=null;
                     }
-                    $reservation= $bdd->prepare(" SELECT u.nom, u.prenom, u.email, u.telephone, r.date_debut, r.date_sortie, r.cout, l.adresse,
-                    CASE 
-                        WHEN r.date_sortie < NOW() THEN 'libre'  -- Si la date de sortie est passée
-                        WHEN r.date_sortie >= NOW() THEN 'occupe'  -- Si l'appartement est encore réservé
-                        ELSE 'libre'  -- Pour les appartements sans réservation
-                    END AS etat
-                    FROM logement l
-                    LEFT JOIN reservation r ON l.Id_logement = r.Id_logement
-                    LEFT JOIN user u ON r.id_user = u.id_user
-                    WHERE u.id_user = :user AND u.statut = '0'
-                ");
-
-                    $reservation->execute(["user"=>$user]);
-
-                    if($reservation->rowCount() > 0){
-
-                    $locataires=$reservation->fetchAll(PDO::FETCH_ASSOC);
+                    $reservation = $bdd->prepare("SELECT 
+        u.nom, 
+        u.prenom, 
+        u.email, 
+        u.telephone, 
+        r.date_debut, 
+        r.date_sortie, 
+        r.cout, 
+        l.adresse,
+        CASE 
+            WHEN r.date_sortie >= NOW() THEN 'occupe'
+            ELSE 'libre'
+        END AS etat
+    FROM logement l
+    INNER JOIN reservation r ON l.Id_logement = r.Id_logement
+    INNER JOIN user u ON r.id_user = u.id_user
+    WHERE u.id_user = :user AND u.statut = '0'
+");
+                
+                $reservation->execute(["user" => $user]);
+                
+                if ($reservation->rowCount() > 0) {
+                    $locataires = $reservation->fetchAll(PDO::FETCH_ASSOC);
                 
                     
 ?>
@@ -237,6 +243,12 @@
                             <td><?php echo $locataire['adresse'] ?></td>
                             <td><?php echo $locataire['etat'] ?></td>
                         </tr>
+                        <td>
+            <!-- Boutons action -->
+            <a href="ajouter_logement.php" class="btn" title="Ajouter"><i class="fa fa-plus"></i></a>
+            <a href="modifier_logement.php?id=<?php echo $loge['Id_logement'] ?>" class="btn" title="Modifier"><i class="fa fa-pen"></i></a>
+            <a href="supprimer_logement.php?id=<?php echo $loge['Id_logement'] ?>" class="btn" title="Supprimer" onclick="return confirm('Confirmer la suppression ?');"><i class="fa fa-trash"></i></a>
+        </td>
                   <?php 
                         }
                    }else{
